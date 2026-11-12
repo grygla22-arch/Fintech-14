@@ -1,13 +1,690 @@
-<html>
-   <head>
-     <title>Fintech 14 Homepage</title>
-   </head>
-  <body>
-    <h1>Welcome to Fintech 14 Homepage</h1>
-    <ul>
-      <li>Instructor</li>
-      <li>Student 1</li>
-      <li>Student 2</li>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Fintech 14 · 나의 핀테크 여정</title>
+<meta name="description" content="서울대 ABS 핀테크 14기 과정의 학습 기록과 핀테크 공부 노트" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+<style>
+  /* ============ 색상 / 테마 ============ */
+  :root {
+    --bg: #f7f8fb;
+    --surface: #ffffff;
+    --surface-2: #f0f3f8;
+    --text: #141a26;
+    --muted: #5b6477;
+    --line: #e2e6ee;
+    --primary: #2f5bea;
+    --primary-soft: #e8eeff;
+    --accent: #10b981;
+    --warn: #f59e0b;
+    --shadow: 0 1px 2px rgba(16,24,40,.04), 0 4px 16px rgba(16,24,40,.06);
+    --radius: 16px;
+    --max: 1120px;
+  }
+  :root[data-theme="dark"] {
+    --bg: #0d111a;
+    --surface: #151b27;
+    --surface-2: #1c2433;
+    --text: #e8ecf4;
+    --muted: #9aa4b8;
+    --line: #273044;
+    --primary: #6b8cff;
+    --primary-soft: #1f2a4a;
+    --accent: #34d399;
+    --warn: #fbbf24;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 4px 16px rgba(0,0,0,.25);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+  body {
+    font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+    background: var(--bg); color: var(--text);
+    line-height: 1.65; word-break: keep-all;
+    transition: background .2s, color .2s;
+  }
+  a { color: var(--primary); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 20px; }
+
+  /* ============ 네비게이션 ============ */
+  header.nav {
+    position: sticky; top: 0; z-index: 50;
+    background: color-mix(in srgb, var(--bg) 85%, transparent);
+    backdrop-filter: blur(10px); border-bottom: 1px solid var(--line);
+  }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 60px; }
+  .logo { font-weight: 800; font-size: 18px; color: var(--text); display: flex; align-items: center; gap: 8px; }
+  .logo-badge { background: var(--primary); color: #fff; border-radius: 8px; padding: 2px 8px; font-size: 13px; }
+  .nav-links { display: flex; gap: 4px; list-style: none; }
+  .nav-links a { color: var(--muted); padding: 8px 12px; border-radius: 10px; font-size: 15px; font-weight: 500; }
+  .nav-links a:hover, .nav-links a.active { background: var(--primary-soft); color: var(--primary); text-decoration: none; }
+  .nav-actions { display: flex; gap: 6px; align-items: center; }
+  .icon-btn {
+    border: 1px solid var(--line); background: var(--surface); color: var(--text);
+    width: 38px; height: 38px; border-radius: 10px; cursor: pointer; font-size: 17px;
+    display: inline-flex; align-items: center; justify-content: center;
+  }
+  .icon-btn:hover { border-color: var(--primary); }
+  .menu-btn { display: none; }
+  @media (max-width: 860px) {
+    .menu-btn { display: inline-flex; }
+    .nav-links {
+      display: none; position: absolute; top: 60px; left: 0; right: 0;
+      flex-direction: column; background: var(--surface); border-bottom: 1px solid var(--line);
+      padding: 10px 16px 16px; box-shadow: var(--shadow);
+    }
+    .nav-links.open { display: flex; }
+    .nav-links a { display: block; padding: 12px; }
+  }
+
+  /* ============ 공통 섹션 ============ */
+  section { padding: 72px 0; }
+  .section-head { margin-bottom: 28px; }
+  .eyebrow { color: var(--primary); font-weight: 700; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; }
+  .section-head h2 { font-size: clamp(24px, 3.2vw, 32px); font-weight: 800; margin-top: 4px; letter-spacing: -.02em; }
+  .section-head p { color: var(--muted); margin-top: 6px; }
+  .card {
+    background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+    box-shadow: var(--shadow); padding: 22px;
+  }
+  .grid { display: grid; gap: 16px; }
+  .g-2 { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+  .g-3 { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+  .g-4 { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+  .tag {
+    display: inline-block; font-size: 12px; font-weight: 600; padding: 3px 9px;
+    border-radius: 999px; background: var(--surface-2); color: var(--muted); margin: 2px 4px 2px 0;
+  }
+  .tag.blue { background: var(--primary-soft); color: var(--primary); }
+  .btn {
+    display: inline-flex; align-items: center; gap: 6px; padding: 11px 18px; border-radius: 12px;
+    font-weight: 600; font-size: 15px; border: 1px solid transparent; cursor: pointer;
+  }
+  .btn-primary { background: var(--primary); color: #fff; }
+  .btn-ghost { background: var(--surface); color: var(--text); border-color: var(--line); }
+  .btn:hover { text-decoration: none; filter: brightness(1.05); }
+
+  /* ============ 히어로 ============ */
+  .hero { padding: 64px 0 40px; }
+  .hero-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 28px; align-items: center; }
+  @media (max-width: 860px) { .hero-grid { grid-template-columns: 1fr; } }
+  .hero h1 { font-size: clamp(30px, 5vw, 50px); line-height: 1.2; font-weight: 800; letter-spacing: -.03em; }
+  .hero h1 .hl { color: var(--primary); }
+  .hero .lead { color: var(--muted); font-size: 18px; margin: 16px 0 24px; max-width: 560px; }
+  .hero-cta { display: flex; gap: 10px; flex-wrap: wrap; }
+  .progress-card h3 { font-size: 15px; color: var(--muted); font-weight: 600; }
+  .progress-big { font-size: 42px; font-weight: 800; letter-spacing: -.02em; }
+  .bar { height: 10px; background: var(--surface-2); border-radius: 999px; overflow: hidden; margin: 10px 0 6px; }
+  .bar > span { display: block; height: 100%; background: linear-gradient(90deg, var(--primary), var(--accent)); border-radius: 999px; transition: width 1s ease; }
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 18px; }
+  .stat { background: var(--surface-2); border-radius: 12px; padding: 12px; text-align: center; }
+  .stat b { display: block; font-size: 22px; }
+  .stat span { font-size: 12px; color: var(--muted); }
+
+  /* ============ 과정 소개 ============ */
+  .module { position: relative; transition: transform .15s, border-color .15s; }
+  .module:hover { transform: translateY(-3px); border-color: var(--primary); }
+  .module .num { font-size: 13px; font-weight: 700; color: var(--primary); }
+  .module h3 { font-size: 18px; margin: 4px 0 8px; }
+  .module p { color: var(--muted); font-size: 14.5px; }
+  .module ul { margin: 10px 0 0 18px; color: var(--muted); font-size: 14px; }
+  .status { position: absolute; top: 18px; right: 18px; font-size: 12px; font-weight: 700; padding: 3px 9px; border-radius: 999px; }
+  .status.done { background: color-mix(in srgb, var(--accent) 18%, transparent); color: var(--accent); }
+  .status.now { background: color-mix(in srgb, var(--warn) 20%, transparent); color: var(--warn); }
+  .status.next { background: var(--surface-2); color: var(--muted); }
+  .overview { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 20px; }
+  .overview .card { padding: 16px 18px; }
+  .overview small { color: var(--muted); font-size: 13px; }
+  .overview b { display: block; font-size: 16px; margin-top: 2px; }
+
+  /* ============ 여정 타임라인 ============ */
+  .timeline { position: relative; padding-left: 28px; }
+  .timeline::before { content: ""; position: absolute; left: 8px; top: 6px; bottom: 6px; width: 2px; background: var(--line); }
+  .tl-item { position: relative; margin-bottom: 18px; }
+  .tl-item::before {
+    content: ""; position: absolute; left: -26px; top: 22px; width: 14px; height: 14px; border-radius: 50%;
+    background: var(--surface); border: 3px solid var(--primary);
+  }
+  .tl-meta { font-size: 13px; color: var(--muted); display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+  .tl-item h3 { font-size: 18px; margin: 4px 0 6px; }
+  .tl-item p { color: var(--muted); font-size: 15px; }
+  .takeaway { margin-top: 12px; padding: 12px 14px; border-left: 3px solid var(--accent); background: var(--surface-2); border-radius: 0 10px 10px 0; font-size: 14.5px; }
+  .takeaway b { color: var(--accent); }
+  .mood { font-size: 18px; }
+
+  /* ============ 노트 / 검색 ============ */
+  .toolbar { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 18px; align-items: center; }
+  .search {
+    flex: 1 1 260px; display: flex; align-items: center; gap: 8px; background: var(--surface);
+    border: 1px solid var(--line); border-radius: 12px; padding: 0 14px; height: 44px;
+  }
+  .search:focus-within { border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-soft); }
+  .search input { border: 0; outline: 0; background: transparent; color: var(--text); font: inherit; width: 100%; }
+  .chips { display: flex; gap: 6px; flex-wrap: wrap; }
+  .chip {
+    border: 1px solid var(--line); background: var(--surface); color: var(--muted);
+    padding: 7px 13px; border-radius: 999px; font: inherit; font-size: 14px; cursor: pointer;
+  }
+  .chip.active { background: var(--primary); border-color: var(--primary); color: #fff; }
+  .note { cursor: pointer; display: flex; flex-direction: column; transition: transform .15s, border-color .15s; }
+  .note:hover { transform: translateY(-3px); border-color: var(--primary); }
+  .note:focus-visible { outline: 3px solid var(--primary); outline-offset: 2px; }
+  .note h3 { font-size: 17px; margin: 8px 0 6px; }
+  .note p { color: var(--muted); font-size: 14.5px; flex: 1; }
+  .note .foot { margin-top: 14px; font-size: 13px; color: var(--muted); display: flex; justify-content: space-between; }
+  .empty { text-align: center; color: var(--muted); padding: 40px 0; display: none; }
+
+  /* ============ 용어 사전 ============ */
+  .glossary { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 12px; }
+  .term { padding: 16px 18px; }
+  .term dt { font-weight: 700; font-size: 16px; }
+  .term dt small { color: var(--muted); font-weight: 500; font-size: 13px; margin-left: 6px; }
+  .term dd { color: var(--muted); font-size: 14.5px; margin-top: 4px; }
+
+  /* ============ 사람들 ============ */
+  .person { display: flex; gap: 14px; align-items: center; }
+  .avatar {
+    width: 52px; height: 52px; border-radius: 50%; flex-shrink: 0; display: grid; place-items: center;
+    font-weight: 800; color: #fff; font-size: 20px; background: linear-gradient(135deg, var(--primary), var(--accent));
+  }
+  .person h3 { font-size: 16px; }
+  .person p { font-size: 14px; color: var(--muted); }
+
+  /* ============ 리소스 ============ */
+  .resource { display: flex; gap: 12px; align-items: flex-start; }
+  .resource .ico { font-size: 22px; }
+  .resource h3 { font-size: 15.5px; }
+  .resource p { font-size: 14px; color: var(--muted); }
+
+  /* ============ 모달 ============ */
+  .modal-bg {
+    position: fixed; inset: 0; background: rgba(5,10,20,.55); z-index: 100;
+    display: none; align-items: center; justify-content: center; padding: 16px;
+  }
+  .modal-bg.open { display: flex; }
+  .modal {
+    background: var(--surface); border-radius: 20px; max-width: 720px; width: 100%;
+    max-height: 86vh; overflow-y: auto; padding: 28px; position: relative; box-shadow: 0 20px 60px rgba(0,0,0,.3);
+  }
+  .modal h2 { font-size: 24px; margin: 8px 0 4px; letter-spacing: -.02em; }
+  .modal .meta { color: var(--muted); font-size: 14px; margin-bottom: 16px; }
+  .modal .body h4 { margin: 18px 0 6px; font-size: 16px; }
+  .modal .body p, .modal .body li { color: var(--text); font-size: 15.5px; }
+  .modal .body ul { margin-left: 20px; }
+  .modal .close { position: absolute; top: 16px; right: 16px; }
+
+  /* ============ 푸터 ============ */
+  footer { border-top: 1px solid var(--line); padding: 32px 0; color: var(--muted); font-size: 14px; }
+  .foot-inner { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+  .to-top {
+    position: fixed; right: 18px; bottom: 18px; z-index: 40; opacity: 0; pointer-events: none; transition: opacity .2s;
+    box-shadow: var(--shadow);
+  }
+  .to-top.show { opacity: 1; pointer-events: auto; }
+
+  .reveal { opacity: 0; transform: translateY(14px); transition: opacity .5s ease, transform .5s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+
+<!-- ============ 네비게이션 ============ -->
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a href="#home" class="logo"><span class="logo-badge">FT14</span> 나의 핀테크 여정</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#course">교육과정</a></li>
+      <li><a href="#journey">여정 기록</a></li>
+      <li><a href="#notes">학습 노트</a></li>
+      <li><a href="#glossary">용어 사전</a></li>
+      <li><a href="#people">함께한 사람들</a></li>
+      <li><a href="#resources">자료실</a></li>
     </ul>
-  </body>
+    <div class="nav-actions">
+      <button class="icon-btn" id="themeBtn" aria-label="다크 모드 전환" title="다크 모드 전환">🌙</button>
+      <button class="icon-btn menu-btn" id="menuBtn" aria-label="메뉴 열기">☰</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- ============ 히어로 ============ -->
+  <section class="hero" id="home">
+    <div class="wrap hero-grid">
+      <div class="reveal">
+        <span class="tag blue">서울대 ABS · 핀테크 14기</span>
+        <h1>금융과 기술이 만나는 곳,<br/><span class="hl">나의 핀테크 여정</span>을 기록합니다</h1>
+        <p class="lead">서울대 ABS 핀테크 14기 과정에서 배운 내용과 생각, 그리고 함께한 사람들을 한곳에 정리한 개인 학습 아카이브입니다.</p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="#journey">📅 여정 보러가기</a>
+          <a class="btn btn-ghost" href="#notes">📚 학습 노트</a>
+        </div>
+      </div>
+      <div class="card progress-card reveal">
+        <h3>과정 진행률</h3>
+        <div class="progress-big" id="progressPct">0%</div>
+        <div class="bar"><span id="progressBar" style="width:0"></span></div>
+        <div style="font-size:13px;color:var(--muted)" id="progressText"></div>
+        <div class="stats">
+          <div class="stat"><b id="statWeeks">0</b><span>기록한 주차</span></div>
+          <div class="stat"><b id="statNotes">0</b><span>학습 노트</span></div>
+          <div class="stat"><b id="statTerms">0</b><span>정리한 용어</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 교육과정 ============ -->
+  <section id="course" style="background:var(--surface-2)">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">Curriculum</div>
+        <h2>교육과정 한눈에 보기</h2>
+        <p>모듈별로 무엇을 배우는지, 지금 어디까지 왔는지 확인하세요.</p>
+      </div>
+      <div class="overview reveal" id="overview"></div>
+      <div class="grid g-3" id="modules"></div>
+    </div>
+  </section>
+
+  <!-- ============ 여정 기록 ============ -->
+  <section id="journey">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">Journey Log</div>
+        <h2>주차별 여정 기록</h2>
+        <p>매 수업의 핵심 내용과 나만의 인사이트를 남깁니다.</p>
+      </div>
+      <div class="toolbar">
+        <div class="chips" id="journeySort">
+          <button class="chip active" data-order="desc">최신순</button>
+          <button class="chip" data-order="asc">처음부터</button>
+        </div>
+      </div>
+      <div class="timeline" id="timeline"></div>
+    </div>
+  </section>
+
+  <!-- ============ 학습 노트 ============ -->
+  <section id="notes" style="background:var(--surface-2)">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">Study Notes</div>
+        <h2>핀테크 학습 노트</h2>
+        <p>카드를 누르면 전체 내용을 볼 수 있어요. 검색과 분야 필터를 활용하세요.</p>
+      </div>
+      <div class="toolbar">
+        <label class="search">🔍 <input id="noteSearch" type="search" placeholder="노트 검색 (예: 블록체인, 마이데이터)" /></label>
+      </div>
+      <div class="chips" id="noteFilters" style="margin-bottom:18px"></div>
+      <div class="grid g-3" id="noteGrid"></div>
+      <div class="empty" id="noteEmpty">검색 결과가 없어요 🙈</div>
+    </div>
+  </section>
+
+  <!-- ============ 용어 사전 ============ -->
+  <section id="glossary">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">Glossary</div>
+        <h2>핀테크 용어 사전</h2>
+        <p>공부하면서 정리한 핵심 용어들입니다.</p>
+      </div>
+      <div class="toolbar">
+        <label class="search">🔍 <input id="termSearch" type="search" placeholder="용어 검색 (예: CBDC, BNPL)" /></label>
+      </div>
+      <dl class="glossary" id="termList"></dl>
+      <div class="empty" id="termEmpty">찾는 용어가 없어요. 직접 추가해 보세요!</div>
+    </div>
+  </section>
+
+  <!-- ============ 함께한 사람들 ============ -->
+  <section id="people" style="background:var(--surface-2)">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">People</div>
+        <h2>함께한 사람들</h2>
+        <p>14기를 함께 만들어 가는 교수님과 동기들.</p>
+      </div>
+      <div class="grid g-4" id="peopleGrid"></div>
+    </div>
+  </section>
+
+  <!-- ============ 자료실 ============ -->
+  <section id="resources">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">Resources</div>
+        <h2>자료실 & 추천 링크</h2>
+        <p>공부할 때 자주 찾는 사이트와 자료 모음.</p>
+      </div>
+      <div class="grid g-3" id="resourceGrid"></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot-inner">
+    <div>© <span id="year"></span> 나의 핀테크 여정 · 서울대 ABS 핀테크 14기</div>
+    <div><a href="https://github.com/grygla22-arch/Fintech-14" target="_blank" rel="noopener">GitHub 저장소</a></div>
+  </div>
+</footer>
+
+<button class="icon-btn to-top" id="toTop" aria-label="맨 위로">↑</button>
+
+<!-- 노트 상세 모달 -->
+<div class="modal-bg" id="modalBg" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal">
+    <button class="icon-btn close" id="modalClose" aria-label="닫기">✕</button>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<script>
+/* =====================================================================
+   ✏️ 여기만 수정하면 홈페이지 내용이 바뀝니다!
+   아래 데이터를 내 실제 과정 내용으로 바꾸거나, 항목을 추가하세요.
+   ===================================================================== */
+
+// ✏️ 과정 기본 정보 (날짜는 YYYY-MM-DD 형식)
+const COURSE = {
+  name: "서울대 ABS 핀테크 14기",
+  start: "2026-09-01",   // ✏️ 과정 시작일
+  end:   "2027-02-28",   // ✏️ 과정 종료일
+  schedule: "매주 ○요일 19:00–22:00", // ✏️ 수업 시간
+  place: "서울대학교",                 // ✏️ 장소
+  format: "강의 + 사례연구 + 팀 프로젝트"
+};
+
+// ✏️ 교육 모듈 (status: "done" 완료 / "now" 진행중 / "next" 예정)
+const MODULES = [
+  { title: "핀테크 개론 & 산업 지형", status: "done",
+    desc: "핀테크의 정의와 발전 과정, 국내외 주요 플레이어와 비즈니스 모델을 살펴봅니다.",
+    topics: ["금융업의 디지털 전환", "빅테크 vs 전통 금융", "국내 핀테크 생태계"] },
+  { title: "디지털 결제 & 송금", status: "done",
+    desc: "결제 인프라의 구조와 간편결제·해외송금 서비스의 작동 원리를 이해합니다.",
+    topics: ["카드·PG·VAN 구조", "간편결제 / 오픈뱅킹", "BNPL"] },
+  { title: "블록체인 & 디지털 자산", status: "now",
+    desc: "분산원장 기술부터 가상자산, 토큰증권(STO), CBDC까지 다룹니다.",
+    topics: ["블록체인 기초", "스테이블코인 / CBDC", "STO와 RWA 토큰화"] },
+  { title: "AI · 데이터 금융", status: "next",
+    desc: "금융 데이터와 AI를 활용한 신용평가, 자산관리, 이상거래 탐지를 배웁니다.",
+    topics: ["마이데이터", "대안신용평가", "로보어드바이저 / 생성형 AI"] },
+  { title: "규제 & 레그테크", status: "next",
+    desc: "금융 규제 체계와 샌드박스, 컴플라이언스 자동화 기술을 학습합니다.",
+    topics: ["전자금융거래법", "혁신금융서비스(샌드박스)", "KYC / AML"] },
+  { title: "인슈어테크 · 웰스테크", status: "next",
+    desc: "보험과 자산관리 분야의 디지털 혁신 사례를 분석합니다.",
+    topics: ["임베디드 보험", "디지털 자산관리", "연금 / 투자 플랫폼"] },
+  { title: "핀테크 창업 & 투자", status: "next",
+    desc: "핀테크 스타트업의 BM 설계, 투자 유치, 사업화 전략을 다룹니다.",
+    topics: ["BaaS / 임베디드 금융", "VC 관점의 핀테크", "Go-to-Market"] },
+  { title: "캡스톤 프로젝트", status: "next",
+    desc: "팀별로 핀테크 서비스를 기획하고 최종 발표합니다.",
+    topics: ["문제 정의", "서비스 기획서", "최종 발표"] }
+];
+
+// ✏️ 주차별 여정 기록 (최신 항목을 추가하세요)
+const JOURNEY = [
+  { week: 1, date: "2026-09-02", title: "입학식 & 오리엔테이션", mood: "🎉",
+    summary: "14기 동기들과 처음 만난 날. 과정 전체 로드맵과 팀 프로젝트 안내를 들었다.",
+    tags: ["OT", "네트워킹"],
+    takeaway: "다양한 배경의 동기들 — 은행, 증권, 스타트업, IT — 과 함께 배운다는 것 자체가 큰 자산." },
+  { week: 2, date: "2026-09-09", title: "핀테크 개론: 금융은 어떻게 변하고 있나", mood: "💡",
+    summary: "핀테크의 역사와 빅테크의 금융 진출, 전통 금융사의 대응 전략을 배웠다.",
+    tags: ["핀테크 개론", "빅테크"],
+    takeaway: "핀테크는 '기술'보다 '고객 경험과 비용 구조의 혁신'이 핵심이다." },
+  { week: 3, date: "2026-09-16", title: "결제 인프라의 이해", mood: "💳",
+    summary: "카드 결제 한 번에 카드사·PG·VAN·가맹점이 어떻게 연결되는지 흐름을 따라가 봤다.",
+    tags: ["결제", "PG", "VAN"],
+    takeaway: "수수료 구조를 알면 간편결제 회사들의 전략이 보인다." },
+  { week: 4, date: "2026-09-23", title: "블록체인 기초와 디지털 자산", mood: "⛓️",
+    summary: "분산원장, 합의 알고리즘, 스마트 컨트랙트의 개념과 실제 금융 적용 사례.",
+    tags: ["블록체인", "STO"],
+    takeaway: "블록체인의 진짜 가치는 '중개자 없는 신뢰'와 '자산의 프로그래머블화'." }
+];
+
+// ✏️ 학습 노트 (category로 필터링됩니다)
+const NOTES = [
+  { title: "핀테크 비즈니스 모델 4가지 유형", category: "핀테크 개론", date: "2026-09-10",
+    summary: "핀테크 기업이 돈을 버는 방식을 수수료·이자·구독·데이터 모델로 분류해 정리.",
+    body: `
+      <h4>핵심 정리</h4>
+      <ul>
+        <li><b>수수료형</b> — 결제·송금 등 거래 건당 수수료 (예: 간편결제, PG)</li>
+        <li><b>이자 마진형</b> — 대출·예금 금리 차이 (예: 인터넷전문은행, P2P)</li>
+        <li><b>구독/플랫폼형</b> — 금융상품 중개, 프리미엄 구독</li>
+        <li><b>데이터형</b> — 마이데이터 기반 맞춤 추천, B2B 데이터 서비스</li>
+      </ul>
+      <h4>내 생각</h4>
+      <p>대부분의 성공한 핀테크는 하나의 모델로 시작해 여러 모델을 결합하는 방향으로 확장한다.</p>` },
+  { title: "카드 결제의 흐름: 승인과 정산", category: "결제", date: "2026-09-17",
+    summary: "고객이 카드를 긁는 순간부터 가맹점에 돈이 입금되기까지의 과정.",
+    body: `
+      <h4>승인 흐름</h4>
+      <p>고객 → 가맹점(단말기/온라인) → VAN 또는 PG → 카드사 승인 → 응답</p>
+      <h4>정산 흐름</h4>
+      <p>카드사가 수수료를 제하고 가맹점(또는 PG)에 대금 지급. 보통 영업일 기준 수일 소요.</p>
+      <h4>포인트</h4>
+      <ul><li>오프라인은 VAN, 온라인은 PG가 중심</li><li>가맹점 수수료는 카드사·VAN·PG가 나눠 가짐</li></ul>` },
+  { title: "스테이블코인과 CBDC 비교", category: "블록체인", date: "2026-09-24",
+    summary: "민간이 발행하는 스테이블코인과 중앙은행이 발행하는 CBDC의 차이.",
+    body: `
+      <h4>비교</h4>
+      <ul>
+        <li><b>발행 주체</b> — 스테이블코인: 민간 기업 / CBDC: 중앙은행</li>
+        <li><b>가치 안정</b> — 법정화폐·국채 등 준비자산 담보 / 법정화폐 그 자체</li>
+        <li><b>쟁점</b> — 준비금 투명성, 통화주권, 은행 예금 이탈 가능성</li>
+      </ul>
+      <h4>더 공부할 것</h4>
+      <p>원화 스테이블코인 논의와 국내 CBDC 실험 프로젝트 동향.</p>` },
+  { title: "마이데이터가 바꾸는 금융", category: "AI·데이터", date: "2026-10-01",
+    summary: "개인이 자신의 금융 데이터를 통합·이동시킬 수 있는 권리와 그 비즈니스 기회.",
+    body: `
+      <h4>개념</h4>
+      <p>정보주체의 전송요구권을 바탕으로 흩어진 금융 정보를 한곳에 모아 관리·활용하는 제도.</p>
+      <h4>기회</h4>
+      <ul><li>통합 자산관리</li><li>맞춤형 상품 추천</li><li>대안신용평가</li></ul>
+      <h4>과제</h4>
+      <p>보안, 데이터 품질, 수익모델 확보.</p>` },
+  { title: "규제 샌드박스는 왜 필요한가", category: "규제", date: "2026-10-08",
+    summary: "혁신 서비스가 기존 규제에 막히지 않도록 한시적으로 테스트를 허용하는 제도.",
+    body: `
+      <h4>요약</h4>
+      <p>국내에서는 '혁신금융서비스 지정' 형태로 운영되며, 일정 기간 규제 특례를 받아 시장에서 검증할 수 있다.</p>
+      <h4>내 생각</h4>
+      <p>규제는 장벽이 아니라 '설계 조건'. 처음부터 규제를 이해하는 팀이 빨리 간다.</p>` }
+];
+
+// ✏️ 용어 사전
+const TERMS = [
+  ["PG", "Payment Gateway", "온라인 가맹점을 대신해 카드사와 결제를 중개·정산해 주는 결제대행사."],
+  ["VAN", "Value Added Network", "오프라인 가맹점 단말기와 카드사 사이의 결제 승인 통신망을 제공하는 사업자."],
+  ["오픈뱅킹", "Open Banking", "하나의 앱에서 여러 은행 계좌의 조회·이체를 할 수 있도록 표준 API로 연결한 공동 인프라."],
+  ["마이데이터", "MyData", "개인이 자신의 데이터를 금융사 등에서 원하는 곳으로 전송·통합 관리하도록 하는 제도."],
+  ["BNPL", "Buy Now Pay Later", "선구매 후결제. 소액을 분할로 나중에 결제하는 서비스."],
+  ["CBDC", "Central Bank Digital Currency", "중앙은행이 발행하는 디지털 형태의 법정화폐."],
+  ["스테이블코인", "Stablecoin", "법정화폐 등에 가치를 연동해 가격 변동을 최소화한 가상자산."],
+  ["STO", "Security Token Offering", "증권을 블록체인 기반 토큰으로 발행하는 것(토큰증권)."],
+  ["RWA", "Real World Asset", "부동산·채권 등 실물자산을 토큰화해 블록체인 위에서 거래하는 것."],
+  ["DeFi", "Decentralized Finance", "중개기관 없이 스마트 컨트랙트로 운영되는 탈중앙화 금융 서비스."],
+  ["BaaS", "Banking as a Service", "은행 기능을 API 형태로 비금융 기업에 제공하는 서비스."],
+  ["임베디드 금융", "Embedded Finance", "비금융 서비스 안에 결제·대출·보험 등 금융 기능을 자연스럽게 내장하는 것."],
+  ["KYC", "Know Your Customer", "금융사가 고객의 신원을 확인하는 절차."],
+  ["AML", "Anti-Money Laundering", "자금세탁 방지를 위한 모니터링·보고 체계."],
+  ["레그테크", "RegTech", "규제 준수(컴플라이언스) 업무를 기술로 자동화·효율화하는 분야."],
+  ["로보어드바이저", "Robo-Advisor", "알고리즘 기반으로 자산 배분과 투자 자문을 제공하는 서비스."],
+  ["대안신용평가", "Alternative Credit Scoring", "통신·결제·쇼핑 등 비금융 데이터를 활용한 신용평가."],
+  ["인슈어테크", "InsurTech", "보험(Insurance)과 기술(Technology)을 결합한 혁신 분야."]
+];
+
+// ✏️ 함께한 사람들 (실제 이름/소개로 바꾸세요)
+const PEOPLE = [
+  { name: "Instructor", role: "담당 교수님", note: "핀테크 전략 · 디지털 금융" },
+  { name: "Student 1", role: "14기 동기", note: "관심 분야를 적어주세요" },
+  { name: "Student 2", role: "14기 동기", note: "관심 분야를 적어주세요" },
+  { name: "나", role: "14기 수강생 · 이 홈페이지 주인", note: "핀테크 · 디지털 자산에 관심" }
+];
+
+// ✏️ 자료실 링크
+const RESOURCES = [
+  { ico: "🏛️", title: "금융위원회", desc: "금융 정책 · 혁신금융서비스 지정 현황", url: "https://www.fsc.go.kr" },
+  { ico: "🔎", title: "금융감독원", desc: "감독 규정, 금융 통계, 보도자료", url: "https://www.fss.or.kr" },
+  { ico: "🏦", title: "한국은행", desc: "지급결제 보고서, CBDC 연구 자료", url: "https://www.bok.or.kr" },
+  { ico: "🚀", title: "핀테크지원센터", desc: "국내 핀테크 산업 동향과 지원 프로그램", url: "https://fintech.or.kr" },
+  { ico: "📊", title: "BIS (국제결제은행)", desc: "글로벌 결제·디지털화폐 리서치", url: "https://www.bis.org" },
+  { ico: "💻", title: "GitHub 저장소", desc: "이 홈페이지의 소스 코드", url: "https://github.com/grygla22-arch/Fintech-14" }
+];
+
+/* =====================================================================
+   아래는 화면을 그리는 코드입니다. (수정하지 않아도 됩니다)
+   ===================================================================== */
+const $ = (s) => document.querySelector(s);
+const esc = (s) => String(s).replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
+const fmt = (d) => { const x = new Date(d + "T00:00:00"); return `${x.getFullYear()}.${String(x.getMonth()+1).padStart(2,"0")}.${String(x.getDate()).padStart(2,"0")}`; };
+const store = { get(k){ try { return localStorage.getItem(k); } catch(e){ return null; } }, set(k,v){ try { localStorage.setItem(k,v); } catch(e){} } };
+
+/* 테마 */
+(function theme(){
+  const saved = store.get("ft14-theme");
+  const prefersDark = window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches;
+  const apply = (t) => { document.documentElement.dataset.theme = t; $("#themeBtn").textContent = t === "dark" ? "☀️" : "🌙"; };
+  apply(saved || (prefersDark ? "dark" : "light"));
+  $("#themeBtn").onclick = () => { const t = document.documentElement.dataset.theme === "dark" ? "light" : "dark"; apply(t); store.set("ft14-theme", t); };
+})();
+
+/* 모바일 메뉴 */
+$("#menuBtn").onclick = () => $("#navLinks").classList.toggle("open");
+document.querySelectorAll("#navLinks a").forEach(a => a.onclick = () => $("#navLinks").classList.remove("open"));
+
+/* 진행률 */
+(function progress(){
+  const s = new Date(COURSE.start), e = new Date(COURSE.end), now = new Date();
+  const pct = Math.max(0, Math.min(100, Math.round((now - s) / (e - s) * 100)));
+  const daysLeft = Math.max(0, Math.ceil((e - now) / 86400000));
+  $("#progressPct").textContent = pct + "%";
+  setTimeout(() => $("#progressBar").style.width = pct + "%", 200);
+  $("#progressText").textContent = now < s ? `${fmt(COURSE.start)} 시작 예정`
+    : now > e ? "🎓 과정을 모두 마쳤습니다!"
+    : `${fmt(COURSE.start)} ~ ${fmt(COURSE.end)} · 수료까지 ${daysLeft}일`;
+  $("#statWeeks").textContent = JOURNEY.length;
+  $("#statNotes").textContent = NOTES.length;
+  $("#statTerms").textContent = TERMS.length;
+})();
+
+/* 교육과정 */
+(function course(){
+  const ov = [["📅 기간", `${fmt(COURSE.start)} – ${fmt(COURSE.end)}`], ["⏰ 일정", COURSE.schedule], ["📍 장소", COURSE.place], ["🧩 방식", COURSE.format]];
+  $("#overview").innerHTML = ov.map(([k,v]) => `<div class="card"><small>${k}</small><b>${esc(v)}</b></div>`).join("");
+  const label = { done: "완료", now: "진행중", next: "예정" };
+  $("#modules").innerHTML = MODULES.map((m,i) => `
+    <article class="card module reveal">
+      <span class="status ${m.status}">${label[m.status]}</span>
+      <div class="num">MODULE ${String(i+1).padStart(2,"0")}</div>
+      <h3>${esc(m.title)}</h3>
+      <p>${esc(m.desc)}</p>
+      <ul>${m.topics.map(t => `<li>${esc(t)}</li>`).join("")}</ul>
+    </article>`).join("");
+})();
+
+/* 여정 타임라인 */
+function renderJourney(order){
+  const list = [...JOURNEY].sort((a,b) => order === "asc" ? a.date.localeCompare(b.date) : b.date.localeCompare(a.date));
+  $("#timeline").innerHTML = list.map(j => `
+    <article class="tl-item">
+      <div class="card">
+        <div class="tl-meta"><span class="tag blue">${j.week}주차</span><span>${fmt(j.date)}</span><span class="mood">${j.mood || ""}</span></div>
+        <h3>${esc(j.title)}</h3>
+        <p>${esc(j.summary)}</p>
+        <div style="margin-top:8px">${(j.tags||[]).map(t => `<span class="tag">#${esc(t)}</span>`).join("")}</div>
+        ${j.takeaway ? `<div class="takeaway"><b>💬 오늘의 인사이트</b><br/>${esc(j.takeaway)}</div>` : ""}
+      </div>
+    </article>`).join("");
+}
+document.querySelectorAll("#journeySort .chip").forEach(btn => btn.onclick = () => {
+  document.querySelectorAll("#journeySort .chip").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active"); renderJourney(btn.dataset.order);
+});
+renderJourney("desc");
+
+/* 학습 노트 */
+let noteCat = "전체";
+const cats = ["전체", ...new Set(NOTES.map(n => n.category))];
+$("#noteFilters").innerHTML = cats.map(c => `<button class="chip ${c==="전체"?"active":""}" data-cat="${esc(c)}">${esc(c)}</button>`).join("");
+$("#noteFilters").onclick = (e) => {
+  const b = e.target.closest(".chip"); if (!b) return;
+  noteCat = b.dataset.cat;
+  document.querySelectorAll("#noteFilters .chip").forEach(x => x.classList.toggle("active", x === b));
+  renderNotes();
+};
+function renderNotes(){
+  const q = $("#noteSearch").value.trim().toLowerCase();
+  const list = NOTES.map((n,i) => ({...n, i}))
+    .filter(n => noteCat === "전체" || n.category === noteCat)
+    .filter(n => !q || (n.title + n.summary + n.category + n.body).toLowerCase().includes(q))
+    .sort((a,b) => b.date.localeCompare(a.date));
+  $("#noteGrid").innerHTML = list.map(n => `
+    <article class="card note" tabindex="0" data-i="${n.i}">
+      <div><span class="tag blue">${esc(n.category)}</span></div>
+      <h3>${esc(n.title)}</h3>
+      <p>${esc(n.summary)}</p>
+      <div class="foot"><span>${fmt(n.date)}</span><span>자세히 보기 →</span></div>
+    </article>`).join("");
+  $("#noteEmpty").style.display = list.length ? "none" : "block";
+}
+$("#noteSearch").oninput = renderNotes;
+$("#noteGrid").onclick = (e) => { const c = e.target.closest(".note"); if (c) openNote(+c.dataset.i); };
+$("#noteGrid").onkeydown = (e) => { const c = e.target.closest(".note"); if (c && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); openNote(+c.dataset.i); } };
+renderNotes();
+
+/* 모달 */
+let lastFocus = null;
+function openNote(i){
+  const n = NOTES[i]; lastFocus = document.activeElement;
+  $("#modalContent").innerHTML = `<span class="tag blue">${esc(n.category)}</span>
+    <h2 id="modalTitle">${esc(n.title)}</h2><div class="meta">${fmt(n.date)} · ${esc(n.summary)}</div>
+    <div class="body">${n.body}</div>`;
+  $("#modalBg").classList.add("open"); document.body.style.overflow = "hidden"; $("#modalClose").focus();
+}
+function closeModal(){ $("#modalBg").classList.remove("open"); document.body.style.overflow = ""; if (lastFocus) lastFocus.focus(); }
+$("#modalClose").onclick = closeModal;
+$("#modalBg").onclick = (e) => { if (e.target.id === "modalBg") closeModal(); };
+document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeModal(); });
+
+/* 용어 사전 */
+function renderTerms(){
+  const q = $("#termSearch").value.trim().toLowerCase();
+  const list = TERMS.filter(t => !q || t.join(" ").toLowerCase().includes(q));
+  $("#termList").innerHTML = list.map(([k,en,d]) => `<div class="card term"><dt>${esc(k)}<small>${esc(en)}</small></dt><dd>${esc(d)}</dd></div>`).join("");
+  $("#termEmpty").style.display = list.length ? "none" : "block";
+}
+$("#termSearch").oninput = renderTerms;
+renderTerms();
+
+/* 사람들 */
+$("#peopleGrid").innerHTML = PEOPLE.map(p => `
+  <div class="card person reveal"><div class="avatar">${esc(p.name[0])}</div>
+  <div><h3>${esc(p.name)}</h3><p>${esc(p.role)}</p><p style="font-size:13px">${esc(p.note)}</p></div></div>`).join("");
+
+/* 자료실 */
+$("#resourceGrid").innerHTML = RESOURCES.map(r => `
+  <a class="card resource reveal" href="${esc(r.url)}" target="_blank" rel="noopener" style="color:inherit;text-decoration:none">
+    <span class="ico">${r.ico}</span><div><h3>${esc(r.title)} ↗</h3><p>${esc(r.desc)}</p></div></a>`).join("");
+
+/* 스크롤 효과: 등장 애니메이션, 현재 메뉴 표시, 맨 위로 버튼 */
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .08 });
+document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+const links = [...document.querySelectorAll("#navLinks a")];
+const spy = new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting) links.forEach(a => a.classList.toggle("active", a.getAttribute("href") === "#" + e.target.id));
+}), { rootMargin: "-45% 0px -50% 0px" });
+document.querySelectorAll("main section[id]").forEach(s => spy.observe(s));
+window.addEventListener("scroll", () => $("#toTop").classList.toggle("show", scrollY > 600), { passive: true });
+$("#toTop").onclick = () => scrollTo({ top: 0, behavior: "smooth" });
+$("#year").textContent = new Date().getFullYear();
+</script>
+</body>
 </html>
