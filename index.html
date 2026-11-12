@@ -138,6 +138,41 @@
   .overview .card { padding: 16px 18px; }
   .overview small { color: var(--muted); font-size: 13px; }
   .overview b { display: block; font-size: 16px; margin-top: 2px; }
+  .phase-title { font-size: 14px; font-weight: 800; color: var(--primary); letter-spacing: .04em; margin: 8px 0 12px; }
+  .phase-title:not(:first-child) { margin-top: 32px; }
+  .milestones { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px; }
+  .ms { border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; position: relative; }
+  .ms-date { font-size: 12.5px; color: var(--muted); font-weight: 600; }
+  .ms-title { font-weight: 700; font-size: 15px; margin-top: 2px; }
+  .ms-desc { font-size: 13px; color: var(--muted); margin-top: 2px; }
+  .ms.done { background: var(--surface-2); }
+  .ms.done .ms-title::before { content: "✓ "; color: var(--accent); }
+  .ms.next { border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-soft); }
+  .module { cursor: pointer; display: flex; flex-direction: column; }
+  .module ul { flex: 1; }
+  .mod-meta { margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--line); font-size: 13px; color: var(--muted); display: grid; gap: 4px; }
+  .bar.sm { height: 6px; margin: 4px 0 0; }
+  .mod-link { color: var(--primary); font-weight: 600; margin-top: 2px; }
+  .next-class { border-color: var(--primary); }
+  .nc-label { font-size: 13px; font-weight: 700; color: var(--primary); }
+  .nc-date { font-size: 20px; font-weight: 800; margin: 2px 0 10px; }
+  .nc-slots, .tt-slots { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 8px; }
+  .select { height: 38px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); color: var(--text); font: inherit; font-size: 14px; padding: 0 10px; }
+  .tt-count { font-size: 13px; color: var(--muted); margin-left: auto; }
+  .tt-card { padding: 6px 16px; }
+  .tt-row { display: grid; grid-template-columns: 64px 1fr; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--line); align-items: start; }
+  .tt-row:last-child { border-bottom: 0; }
+  .tt-row.past { opacity: .5; }
+  .tt-row.today { background: var(--primary-soft); margin: 0 -16px; padding: 12px 16px; border-radius: 10px; }
+  .tt-date b { display: block; font-size: 17px; }
+  .tt-date span { font-size: 13px; color: var(--muted); }
+  .tt-slot { background: var(--surface-2); border-radius: 10px; padding: 8px 12px; }
+  .tt-slot small { display: block; font-size: 11.5px; color: var(--muted); font-weight: 600; }
+  .tt-slot b { font-size: 14.5px; }
+  .tt-slot b em { font-style: normal; font-weight: 500; color: var(--muted); }
+  .tt-slot span { display: block; font-size: 13px; color: var(--muted); }
+  .tt-off { color: var(--muted); font-size: 14px; padding: 8px 0; }
+  .tt-note { grid-column: 1 / -1; font-size: 13px; color: var(--warn); font-weight: 600; }
 
   /* ============ 여정 타임라인 ============ */
   .timeline { position: relative; padding-left: 28px; }
@@ -179,6 +214,10 @@
   /* ============ 용어 사전 ============ */
   .glossary { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 12px; }
   .term { padding: 16px 18px; }
+  .term-group { font-size: 16px; font-weight: 800; margin: 26px 0 12px; display: flex; align-items: center; gap: 8px; }
+  .term-group:first-child { margin-top: 0; }
+  .term-group span { font-size: 12px; font-weight: 600; color: var(--primary); background: var(--primary-soft); padding: 2px 8px; border-radius: 999px; }
+  .chip small { opacity: .7; margin-left: 2px; }
   .term dt { font-weight: 700; font-size: 16px; }
   .term dt small { color: var(--muted); font-weight: 500; font-size: 13px; margin-left: 6px; }
   .term dd { color: var(--muted); font-size: 14.5px; margin-top: 4px; }
@@ -237,6 +276,7 @@
     <a href="#home" class="logo"><span class="logo-badge">FT14</span> 나의 핀테크 여정</a>
     <ul class="nav-links" id="navLinks">
       <li><a href="#course">교육과정</a></li>
+      <li><a href="#timetable">시간표</a></li>
       <li><a href="#journey">여정 기록</a></li>
       <li><a href="#notes">학습 노트</a></li>
       <li><a href="#glossary">용어 사전</a></li>
@@ -255,9 +295,9 @@
   <section class="hero" id="home">
     <div class="wrap hero-grid">
       <div class="reveal">
-        <span class="tag blue">서울대 ABS · 핀테크 14기</span>
+        <span class="tag blue">서울대 ABS · 빅데이터 핀테크 AI 14기</span>
         <h1>금융과 기술이 만나는 곳,<br/><span class="hl">나의 핀테크 여정</span>을 기록합니다</h1>
-        <p class="lead">서울대 ABS 핀테크 14기 과정에서 배운 내용과 생각, 그리고 함께한 사람들을 한곳에 정리한 개인 학습 아카이브입니다.</p>
+        <p class="lead">서울대 「제14기 빅데이터 핀테크 AI 고급 전문가 과정」 7개월(2026.10 – 2027.05) 동안 배운 내용과 생각, 그리고 함께한 사람들을 한곳에 정리한 개인 학습 아카이브입니다.</p>
         <div class="hero-cta">
           <a class="btn btn-primary" href="#journey">📅 여정 보러가기</a>
           <a class="btn btn-ghost" href="#notes">📚 학습 노트</a>
@@ -286,7 +326,23 @@
         <p>모듈별로 무엇을 배우는지, 지금 어디까지 왔는지 확인하세요.</p>
       </div>
       <div class="overview reveal" id="overview"></div>
-      <div class="grid g-3" id="modules"></div>
+      <div class="card reveal" style="margin-bottom:28px">
+        <h3 style="font-size:17px;margin-bottom:14px">🗓️ 주요 일정</h3>
+        <ol class="milestones" id="milestones"></ol>
+      </div>
+      <div id="modules"></div>
+
+      <div id="timetable" style="scroll-margin-top:72px">
+        <h3 class="phase-title" style="margin-top:40px">🗓️ 수업 시간표</h3>
+        <div class="card next-class" id="nextClass"></div>
+        <div class="toolbar" style="margin-top:16px">
+          <div class="chips" id="ttMonths"></div>
+          <select id="ttSubject" class="select" aria-label="과목 선택"></select>
+          <span class="tt-count" id="ttCount"></span>
+        </div>
+        <div class="card tt-card"><div id="ttList"></div></div>
+      </div>
+      <p style="margin-top:18px;font-size:14px;color:var(--muted)">📌 출처: 14기 교과 시간표 (일정은 변동될 수 있어요) · 공식 안내: <a id="officialLink" target="_blank" rel="noopener">과정 홈페이지 ↗</a></p>
     </div>
   </section>
 
@@ -331,12 +387,13 @@
       <div class="section-head reveal">
         <div class="eyebrow">Glossary</div>
         <h2>핀테크 용어 사전</h2>
-        <p>공부하면서 정리한 핵심 용어들입니다.</p>
+        <p>과목별로 알아두면 좋은 핵심 용어를 정리했어요. 분야를 고르거나 검색해 보세요.</p>
       </div>
       <div class="toolbar">
-        <label class="search">🔍 <input id="termSearch" type="search" placeholder="용어 검색 (예: CBDC, BNPL)" /></label>
+        <label class="search">🔍 <input id="termSearch" type="search" placeholder="용어 검색 (예: CBDC, 과적합, RAG)" /></label>
       </div>
-      <dl class="glossary" id="termList"></dl>
+      <div class="chips" id="termFilters" style="margin-bottom:18px"></div>
+      <div id="termList"></div>
       <div class="empty" id="termEmpty">찾는 용어가 없어요. 직접 추가해 보세요!</div>
     </div>
   </section>
@@ -390,66 +447,201 @@
    ===================================================================== */
 
 // ✏️ 과정 기본 정보 (날짜는 YYYY-MM-DD 형식)
+// 출처: snukdt.com ABS 공지 + 14기 교과 시간표
 const COURSE = {
-  name: "서울대 ABS 핀테크 14기",
-  start: "2026-09-01",   // ✏️ 과정 시작일
-  end:   "2027-02-28",   // ✏️ 과정 종료일
-  schedule: "매주 ○요일 19:00–22:00", // ✏️ 수업 시간
-  place: "서울대학교",                 // ✏️ 장소
-  format: "강의 + 사례연구 + 팀 프로젝트"
+  name: "제14기 빅데이터 핀테크 AI 고급 전문가 과정",
+  host: "서울대학교 · K-디지털트레이닝",
+  start: "2026-10-13",   // 교육 개시 (화) 08:30 OT
+  end:   "2027-05-21",   // 캡스톤 최종발표 및 수료식 (금)
+  schedule: "주 4일 · 오전 09:00–13:00 / 오후 14:00–18:00 (주로 수요일 휴식)",
+  place: "호암교수회관 로즈룸 (~12/22) → 호암 삼성컨벤션 스튜디오3 (12/23~)",
+  format: "4개월 교과교육 + 3개월 캡스톤 기업 실습",
+  site: "https://www.snukdt.com/abs/introduce/introduce.php"
 };
 
-// ✏️ 교육 모듈 (status: "done" 완료 / "now" 진행중 / "next" 예정)
-const MODULES = [
-  { title: "핀테크 개론 & 산업 지형", status: "done",
-    desc: "핀테크의 정의와 발전 과정, 국내외 주요 플레이어와 비즈니스 모델을 살펴봅니다.",
-    topics: ["금융업의 디지털 전환", "빅테크 vs 전통 금융", "국내 핀테크 생태계"] },
-  { title: "디지털 결제 & 송금", status: "done",
-    desc: "결제 인프라의 구조와 간편결제·해외송금 서비스의 작동 원리를 이해합니다.",
-    topics: ["카드·PG·VAN 구조", "간편결제 / 오픈뱅킹", "BNPL"] },
-  { title: "블록체인 & 디지털 자산", status: "now",
-    desc: "분산원장 기술부터 가상자산, 토큰증권(STO), CBDC까지 다룹니다.",
-    topics: ["블록체인 기초", "스테이블코인 / CBDC", "STO와 RWA 토큰화"] },
-  { title: "AI · 데이터 금융", status: "next",
-    desc: "금융 데이터와 AI를 활용한 신용평가, 자산관리, 이상거래 탐지를 배웁니다.",
-    topics: ["마이데이터", "대안신용평가", "로보어드바이저 / 생성형 AI"] },
-  { title: "규제 & 레그테크", status: "next",
-    desc: "금융 규제 체계와 샌드박스, 컴플라이언스 자동화 기술을 학습합니다.",
-    topics: ["전자금융거래법", "혁신금융서비스(샌드박스)", "KYC / AML"] },
-  { title: "인슈어테크 · 웰스테크", status: "next",
-    desc: "보험과 자산관리 분야의 디지털 혁신 사례를 분석합니다.",
-    topics: ["임베디드 보험", "디지털 자산관리", "연금 / 투자 플랫폼"] },
-  { title: "핀테크 창업 & 투자", status: "next",
-    desc: "핀테크 스타트업의 BM 설계, 투자 유치, 사업화 전략을 다룹니다.",
-    topics: ["BaaS / 임베디드 금융", "VC 관점의 핀테크", "Go-to-Market"] },
-  { title: "캡스톤 프로젝트", status: "next",
-    desc: "팀별로 핀테크 서비스를 기획하고 최종 발표합니다.",
-    topics: ["문제 정의", "서비스 기획서", "최종 발표"] }
+// 주요 일정 (지난 날짜는 자동으로 '완료' 표시)
+const MILESTONES = [
+  { date: "2026-10-02", title: "최종 합격 발표", desc: "설명회 · 서류 · 면접을 거쳐 합격" },
+  { date: "2026-10-13", title: "개강 & OT", desc: "08:30 OT 후 바로 수업 시작" },
+  { date: "2026-11-20", title: "워크숍", desc: "11/20(금) – 11/21(토)" },
+  { date: "2026-12-23", title: "강의실 이전", desc: "호암 삼성컨벤션 스튜디오3" },
+  { date: "2027-01-25", title: "기업설명회", desc: "우석경제관 107호 또는 504호" },
+  { date: "2027-02-19", title: "교과교육 마지막 수업", desc: "AI응용 특강 · 강화학습" },
+  { date: "2027-02-23", title: "캡스톤 프로젝트 시작", desc: "09:00–18:00 종일 프로젝트" },
+  { date: "2027-03-29", title: "캡스톤 중간발표 1", desc: "" },
+  { date: "2027-04-26", title: "캡스톤 중간발표 2", desc: "" },
+  { date: "2027-05-21", title: "최종발표 & 수료식 🎓", desc: "7개월 여정 마무리" }
 ];
 
-// ✏️ 주차별 여정 기록 (최신 항목을 추가하세요)
+// 교육 과목 — key는 시간표(SESSIONS)의 과목명과 같아야 해요. 강사·기간·횟수·진행 상태는 시간표에서 자동 계산됩니다.
+// ✏️ topics는 일반적인 학습 주제 예시예요. 실제 배운 내용으로 바꿔주세요.
+const MODULES = [
+  { phase: 1, key: "핀테크와 암호", desc: "디지털 금융 보안의 기반이 되는 암호 기술을 배웁니다.",
+    topics: ["대칭키 · 공개키 암호", "해시 함수", "전자서명과 인증"] },
+  { phase: 1, key: "고급재무론", desc: "기업재무와 투자론의 핵심 이론을 다룹니다.",
+    topics: ["화폐의 시간가치 · NPV", "포트폴리오 이론 · CAPM", "채권 · 파생상품"] },
+  { phase: 1, key: "AI수학", desc: "AI 모델을 이해하는 데 필요한 수학 기초를 다집니다.",
+    topics: ["선형대수 (벡터 · 행렬)", "미적분 · 최적화", "확률"] },
+  { phase: 1, key: "통계 데이터 사이언스", desc: "데이터로 판단하는 통계적 사고와 분석 방법을 배웁니다.",
+    topics: ["확률분포 · 추정", "가설검정", "회귀분석"] },
+  { phase: 1, key: "파이선 프로그래밍", desc: "데이터 분석과 AI 개발의 기본 언어인 Python을 익힙니다.",
+    topics: ["Python 문법", "Pandas / NumPy", "데이터 처리 실습"] },
+  { phase: 1, key: "데이터베이스", desc: "데이터를 저장하고 조회하는 데이터베이스와 SQL을 배웁니다.",
+    topics: ["관계형 데이터베이스", "SQL", "데이터 모델링"] },
+  { phase: 1, key: "시각화, 웹 개발", desc: "분석 결과를 시각화하고 웹 서비스로 만드는 방법을 배웁니다.",
+    topics: ["데이터 시각화", "웹 프론트엔드 기초", "대시보드 · 웹앱"] },
+  { phase: 1, key: "기계학습과 딥러닝", desc: "머신러닝과 딥러닝 모델의 원리와 실습을 다룹니다.",
+    topics: ["지도 · 비지도 학습", "신경망과 딥러닝", "모델 평가 · 튜닝"] },
+  { phase: 1, key: "AI응용", desc: "생성형 · 비주얼 · 피지컬 AI 등 다양한 AI 응용 분야를 배웁니다.",
+    topics: ["생성형 AI · 비주얼 AI", "피지컬 AI · 강화학습", "바이오 · 네트워크 · 물리와 AI"] },
+  { phase: 1, key: "자연어처리", desc: "언어를 이해하는 AI와 LLM 응용을 다룹니다.",
+    topics: ["텍스트 전처리 · 임베딩", "언어모델 · 트랜스포머", "LLM 응용"] },
+  { phase: 1, key: "알고리듬 트레이딩", desc: "데이터와 알고리즘으로 투자 전략을 만들고 검증합니다.",
+    topics: ["트레이딩 전략", "백테스팅", "퀀트 투자"] },
+  { phase: 1, key: "디지털 화폐와 금융, 인슈어테크", desc: "디지털 화폐와 결제, 보험 분야의 혁신을 살펴봅니다.",
+    topics: ["CBDC · 스테이블코인", "디지털 결제", "인슈어테크"] },
+  { phase: 1, key: "핀테크 제품, 서비스 개발 방법론", desc: "핀테크 서비스를 기획하고 만드는 방법을 배웁니다.",
+    topics: ["문제 정의 · 서비스 기획", "애자일 · MVP", "사용자 검증"] },
+  { phase: 1, key: "블록체인", desc: "블록체인 기술과 디지털 자산 생태계를 이해합니다.",
+    topics: ["분산원장 · 합의 알고리즘", "스마트 컨트랙트", "토큰 · DeFi"] },
+  { phase: 1, key: "핀테크 서비스 법", desc: "핀테크 서비스에 적용되는 법과 규제를 배웁니다.",
+    topics: ["전자금융거래법", "금융 규제 · 샌드박스", "개인정보 · 신용정보"] },
+  { phase: 1, key: "빅데이터 핀테크 AI 응용사례", desc: "현업 전문가 특강과 실습으로 산업 적용 사례를 배웁니다.",
+    topics: ["응용사례 실습 (KDT)", "반도체와 AI · 정보이론 · 뇌와 AI", "기업설명회"] },
+  { phase: 2, key: "캡스톤", desc: "3개월간 팀별로 기업 연계 핀테크·AI 프로젝트를 수행합니다.",
+    topics: ["중간발표 1 (3/29)", "중간발표 2 (4/26)", "최종발표 & 수료식 (5/21)"] }
+];
+
+// 수업 시간표 — [날짜, 오전(09–13), 오후(14–18), 메모, 휴일명]
+// 형식: "과목:세부주제/강사". 오전과 오후가 같으면 종일 수업이에요.
+// ⚠️ 2월 10–12일 일부와 3–5월 캡스톤 일정은 원본 시간표에서 한 번 더 확인하세요.
+const SESSIONS = [
+  ["2026-10-13", "핀테크와 암호/김명환", "통계 데이터 사이언스/류근관", "08:30 OT 후 수업 시작"],
+  ["2026-10-15", "핀테크와 암호/김명환", "데이터베이스/정형수"],
+  ["2026-10-16", "고급재무론/김정욱", "통계 데이터 사이언스/류근관"],
+  ["2026-10-19", "고급재무론/김정욱", "통계 데이터 사이언스/류근관"],
+  ["2026-10-20", "핀테크와 암호/김명환", "AI수학/이훈희"],
+  ["2026-10-22", "시각화, 웹 개발/박현우", "고급재무론/김정욱"],
+  ["2026-10-23", "파이선 프로그래밍/김형신", "파이선 프로그래밍/김형신"],
+  ["2026-10-26", "빅데이터 핀테크 AI 응용사례:응용사례 실습/KDT실습", "고급재무론/김정욱"],
+  ["2026-10-27", "AI수학/이훈희", "AI수학/이훈희"],
+  ["2026-10-29", "통계 데이터 사이언스/류근관", "데이터베이스/정형수"],
+  ["2026-10-30", "AI수학/이훈희", "통계 데이터 사이언스/류근관"],
+  ["2026-10-31", "행사:ABC 5기 최종발표 (희망자 참관)", ""],
+  ["2026-11-02", "AI수학/이훈희", "AI수학/이훈희"],
+  ["2026-11-03", "데이터베이스/이상원", "데이터베이스/이상원"],
+  ["2026-11-05", "통계 데이터 사이언스/류근관", "고급재무론/김정욱"],
+  ["2026-11-06", "고급재무론/김정욱", "AI응용:생성형 AI/김태섭"],
+  ["2026-11-09", "통계 데이터 사이언스/빈기범", "빅데이터 핀테크 AI 응용사례:응용사례 실습/KDT실습"],
+  ["2026-11-10", "시각화, 웹 개발/박현우", "고급재무론/김정욱"],
+  ["2026-11-12", "시각화, 웹 개발/박현우", "데이터베이스/정형수"],
+  ["2026-11-13", "고급재무론/김정욱", "데이터베이스/정형수"],
+  ["2026-11-16", "통계 데이터 사이언스/빈기범", "AI응용:생성형 AI/김태섭", "고급재무론 보강 18:00–18:50"],
+  ["2026-11-17", "기계학습과 딥러닝/이재욱", "시각화, 웹 개발/박현우"],
+  ["2026-11-18", "파이선 프로그래밍/김형신", "파이선 프로그래밍/김형신", "장소: 우석경제관 504호"],
+  ["2026-11-20", "행사:워크숍", "행사:워크숍"],
+  ["2026-11-21", "행사:워크숍", "행사:워크숍"],
+  ["2026-11-23", "AI응용:생성형 AI/김태섭", "파이선 프로그래밍/김형신"],
+  ["2026-11-24", "기계학습과 딥러닝/이재욱", "기계학습과 딥러닝/이재욱"],
+  ["2026-11-26", "통계 데이터 사이언스/류근관", "기계학습과 딥러닝/이재욱"],
+  ["2026-11-27", "자연어처리/신효필", "자연어처리/신효필", "장소: 호암교수회관 튤립룸"],
+  ["2026-11-30", "AI응용:비주얼 AI/박재식", "AI응용:비주얼 AI/박재식"],
+  ["2026-12-01", "AI응용:비주얼 AI/박재식", "AI응용:비주얼 AI/박재식", "장소: 우석경제관 504호"],
+  ["2026-12-02", "빅데이터 핀테크 AI 응용사례/공훈의", "AI응용:비주얼 AI/박재식", "장소: 우석경제관 108호"],
+  ["2026-12-04", "AI응용:비주얼 AI/박재식", "자연어처리/신효필"],
+  ["2026-12-07", "통계 데이터 사이언스/빈기범", "빅데이터 핀테크 AI 응용사례:응용사례 실습/KDT실습"],
+  ["2026-12-08", "알고리듬 트레이딩/강유", "디지털 화폐와 금융, 인슈어테크/김영식"],
+  ["2026-12-10", "알고리듬 트레이딩/강유", "통계 데이터 사이언스/류근관"],
+  ["2026-12-11", "통계 데이터 사이언스/빈기범", "자연어처리/신효필"],
+  ["2026-12-14", "빅데이터 핀테크 AI 응용사례/공훈의", "시각화, 웹 개발/박현우"],
+  ["2026-12-15", "핀테크 제품, 서비스 개발 방법론/박우진", "디지털 화폐와 금융, 인슈어테크/김영식"],
+  ["2026-12-17", "AI응용:생성형 AI/김태섭", "디지털 화폐와 금융, 인슈어테크/김영식"],
+  ["2026-12-18", "기계학습과 딥러닝/이재욱", "기계학습과 딥러닝/이재욱"],
+  ["2026-12-21", "AI응용:생성형 AI/김태섭", "빅데이터 핀테크 AI 응용사례:응용사례 실습/KDT실습"],
+  ["2026-12-22", "기계학습과 딥러닝/이재욱", "기계학습과 딥러닝/이재욱", "로즈룸 마지막 수업"],
+  ["2026-12-23", "시각화, 웹 개발/박현우", "빅데이터 핀테크 AI 응용사례/공훈의", "강의실 이전: 호암 삼성컨벤션 스튜디오3"],
+  ["2026-12-25", "", "", "", "성탄절"],
+  ["2026-12-28", "자연어처리:LLM 응용/최윤재", "자연어처리:LLM 응용/최윤재"],
+  ["2026-12-29", "자연어처리:LLM 응용/최윤재", "자연어처리:LLM 응용/최윤재"],
+  ["2027-01-01", "", "", "", "신정"],
+  ["2027-01-04", "핀테크 제품, 서비스 개발 방법론/박우진", "고급재무론/최재원"],
+  ["2027-01-05", "빅데이터 핀테크 AI 응용사례/공훈의", "고급재무론/최재원"],
+  ["2027-01-07", "블록체인/장희수", "빅데이터 핀테크 AI 응용사례:반도체와 AI 시스템/추후 공지"],
+  ["2027-01-08", "기계학습과 딥러닝/이우진", "기계학습과 딥러닝/이우진"],
+  ["2027-01-11", "고급재무론/최재원", "블록체인/장희수"],
+  ["2027-01-12", "핀테크 제품, 서비스 개발 방법론/박우진", "블록체인/장희수"],
+  ["2027-01-14", "블록체인/장희수", "AI응용/박우진"],
+  ["2027-01-15", "빅데이터 핀테크 AI 응용사례:반도체와 AI 시스템/추후 공지", "빅데이터 핀테크 AI 응용사례:응용사례 특강/추후 공지"],
+  ["2027-01-18", "블록체인/장희수", "고급재무론/최재원"],
+  ["2027-01-19", "빅데이터 핀테크 AI 응용사례:응용사례 특강/추후 공지", "빅데이터 핀테크 AI 응용사례:반도체와 AI 시스템/추후 공지"],
+  ["2027-01-21", "빅데이터 핀테크 AI 응용사례:정보이론/추후 공지", "디지털 화폐와 금융, 인슈어테크/추후 공지"],
+  ["2027-01-22", "핀테크 제품, 서비스 개발 방법론/박우진", "AI응용/박우진"],
+  ["2027-01-25", "빅데이터 핀테크 AI 응용사례:기업설명회", "빅데이터 핀테크 AI 응용사례:기업설명회", "장소: 우석경제관 107호 또는 504호"],
+  ["2027-01-26", "디지털 화폐와 금융, 인슈어테크/박소정", "디지털 화폐와 금융, 인슈어테크/박소정"],
+  ["2027-01-27", "핀테크 제품, 서비스 개발 방법론/박우진", "핀테크 제품, 서비스 개발 방법론/박우진"],
+  ["2027-01-28", "디지털 화폐와 금융, 인슈어테크/박소정", "빅데이터 핀테크 AI 응용사례:정보이론/추후 공지"],
+  ["2027-01-29", "행사:13기 최종발표 (희망자 참관)", ""],
+  ["2027-02-01", "AI응용:피지컬 AI/유영재", "AI응용:피지컬 AI/유영재"],
+  ["2027-02-02", "AI응용:피지컬 AI/유영재", "AI응용:피지컬 AI/유영재"],
+  ["2027-02-03", "빅데이터 핀테크 AI 응용사례:뇌와 AI/추후 공지", "AI응용:AI 응용 특강/추후 공지"],
+  ["2027-02-04", "AI응용:AI 응용 특강/추후 공지", "빅데이터 핀테크 AI 응용사례:뇌와 AI/추후 공지"],
+  ["2027-02-08", "", "", "", "설 연휴"],
+  ["2027-02-09", "", "", "", "설 대체휴일"],
+  ["2027-02-10", "핀테크 서비스 법/추후 공지", "AI응용:AI 응용 특강/추후 공지"],
+  ["2027-02-11", "핀테크 서비스 법/추후 공지", "AI응용:바이오 AI/추후 공지"],
+  ["2027-02-12", "AI응용:바이오 AI/추후 공지", "빅데이터 핀테크 AI 응용사례:반도체와 AI 시스템/추후 공지"],
+  ["2027-02-15", "AI응용:강화학습/추후 공지", "핀테크 서비스 법/추후 공지"],
+  ["2027-02-16", "AI응용:AI 응용 특강/추후 공지", "AI응용:강화학습/추후 공지"],
+  ["2027-02-18", "AI응용:초전도 물리와 AI/추후 공지", "AI응용:네트워크와 AI/추후 공지"],
+  ["2027-02-19", "AI응용:AI 응용 특강/추후 공지", "AI응용:강화학습/추후 공지"],
+  ["2027-02-23", "캡스톤 프로젝트", "캡스톤 프로젝트", "캡스톤 시작 · 09:00–18:00"],
+  ["2027-03-01", "", "", "", "삼일절"],
+  ["2027-03-02", "캡스톤 프로젝트", "캡스톤 프로젝트", "09:00–18:00"],
+  ["2027-03-29", "캡스톤 중간발표 1", "캡스톤 중간발표 1"],
+  ["2027-03-30", "캡스톤 프로젝트", "캡스톤 프로젝트", "09:00–18:00"],
+  ["2027-04-01", "캡스톤 프로젝트", "캡스톤 프로젝트", "09:00–18:00"],
+  ["2027-04-17", "행사:ABC 6기 최종발표 (희망자 참관)", ""],
+  ["2027-04-19", "캡스톤 프로젝트", "캡스톤 프로젝트", "09:00–18:00"],
+  ["2027-04-26", "캡스톤 중간발표 2", "캡스톤 중간발표 2"],
+  ["2027-04-27", "캡스톤 프로젝트", "캡스톤 프로젝트", "09:00–18:00"],
+  ["2027-05-03", "캡스톤 프로젝트", "캡스톤 프로젝트", "09:00–18:00"],
+  ["2027-05-05", "", "", "", "어린이날"],
+  ["2027-05-06", "캡스톤 프로젝트", "캡스톤 프로젝트", "09:00–18:00"],
+  ["2027-05-19", "", "", "", "부처님오신날"],
+  ["2027-05-21", "캡스톤 최종발표 및 수료식", "캡스톤 최종발표 및 수료식", "🎓 수료!"]
+];
+
+// ✏️ 주차별 여정 기록 — 수업 과목은 실제 시간표 기준, 요약·인사이트는 예시예요. 내 생각으로 바꿔주세요.
 const JOURNEY = [
-  { week: 1, date: "2026-09-02", title: "입학식 & 오리엔테이션", mood: "🎉",
-    summary: "14기 동기들과 처음 만난 날. 과정 전체 로드맵과 팀 프로젝트 안내를 들었다.",
-    tags: ["OT", "네트워킹"],
-    takeaway: "다양한 배경의 동기들 — 은행, 증권, 스타트업, IT — 과 함께 배운다는 것 자체가 큰 자산." },
-  { week: 2, date: "2026-09-09", title: "핀테크 개론: 금융은 어떻게 변하고 있나", mood: "💡",
-    summary: "핀테크의 역사와 빅테크의 금융 진출, 전통 금융사의 대응 전략을 배웠다.",
-    tags: ["핀테크 개론", "빅테크"],
-    takeaway: "핀테크는 '기술'보다 '고객 경험과 비용 구조의 혁신'이 핵심이다." },
-  { week: 3, date: "2026-09-16", title: "결제 인프라의 이해", mood: "💳",
-    summary: "카드 결제 한 번에 카드사·PG·VAN·가맹점이 어떻게 연결되는지 흐름을 따라가 봤다.",
-    tags: ["결제", "PG", "VAN"],
-    takeaway: "수수료 구조를 알면 간편결제 회사들의 전략이 보인다." },
-  { week: 4, date: "2026-09-23", title: "블록체인 기초와 디지털 자산", mood: "⛓️",
-    summary: "분산원장, 합의 알고리즘, 스마트 컨트랙트의 개념과 실제 금융 적용 사례.",
-    tags: ["블록체인", "STO"],
-    takeaway: "블록체인의 진짜 가치는 '중개자 없는 신뢰'와 '자산의 프로그래머블화'." }
+  { week: 0, date: "2026-10-02", title: "합격! 여정의 시작", mood: "📨",
+    summary: "설명회(9/14) → 서류 접수 → 면접(10/1)을 거쳐 최종 합격 소식을 받았다.",
+    tags: ["지원", "합격"],
+    takeaway: "7개월 풀타임. 각오를 단단히 하자." },
+  { week: 1, date: "2026-10-13", title: "개강 · 핀테크와 암호, 통계 데이터 사이언스", mood: "🎉",
+    summary: "아침 8시 30분 OT로 시작. 첫 수업부터 암호 기술과 통계 — 핀테크의 '보안'과 '데이터' 두 기둥을 동시에 만났다. 고급재무론, 데이터베이스도 시작.",
+    tags: ["핀테크와 암호", "통계", "고급재무론", "데이터베이스"],
+    takeaway: "금융의 신뢰는 결국 수학(암호)과 데이터(통계) 위에 서 있다." },
+  { week: 2, date: "2026-10-19", title: "AI수학 · 시각화 · 파이선 시작", mood: "🐍",
+    summary: "AI수학으로 선형대수를 다시 잡고, 파이선 프로그래밍과 시각화·웹 개발 수업이 시작됐다.",
+    tags: ["AI수학", "파이선", "시각화"],
+    takeaway: "모델을 이해하려면 수학, 만들려면 코드. 둘 다 놓치지 말자." },
+  { week: 3, date: "2026-10-26", title: "첫 KDT 응용사례 실습", mood: "🧪",
+    summary: "빅데이터 핀테크 AI 응용사례 실습으로 배운 내용을 실제 사례에 적용해 봤다. 주말엔 ABC 5기 최종발표 참관.",
+    tags: ["응용사례 실습", "AI수학", "데이터베이스"],
+    takeaway: "선배 기수의 최종발표를 보니 7개월 뒤 내 모습이 그려진다." },
+  { week: 4, date: "2026-11-02", title: "데이터베이스 집중 · 생성형 AI 첫 수업", mood: "🗄️",
+    summary: "이틀 연속 AI수학·데이터베이스 종일 수업. 금요일엔 AI응용(생성형 AI) 첫 수업.",
+    tags: ["데이터베이스", "SQL", "생성형 AI"],
+    takeaway: "좋은 질문을 쿼리로 바꿀 수 있어야 데이터가 답을 준다." },
+  { week: 5, date: "2026-11-09", title: "통계 · 웹 개발 · 고급재무론", mood: "📊",
+    summary: "빈기범 교수님 통계 수업과 응용사례 실습, 시각화·웹 개발, 고급재무론이 이어진 한 주.",
+    tags: ["통계", "웹 개발", "고급재무론"],
+    takeaway: "분석 결과는 보여줄 수 있어야 가치가 된다." }
 ];
 
 // ✏️ 학습 노트 (category로 필터링됩니다)
 const NOTES = [
-  { title: "핀테크 비즈니스 모델 4가지 유형", category: "핀테크 개론", date: "2026-09-10",
+  { title: "핀테크 비즈니스 모델 4가지 유형", category: "핀테크 개론", date: "2026-10-15",
     summary: "핀테크 기업이 돈을 버는 방식을 수수료·이자·구독·데이터 모델로 분류해 정리.",
     body: `
       <h4>핵심 정리</h4>
@@ -461,7 +653,7 @@ const NOTES = [
       </ul>
       <h4>내 생각</h4>
       <p>대부분의 성공한 핀테크는 하나의 모델로 시작해 여러 모델을 결합하는 방향으로 확장한다.</p>` },
-  { title: "카드 결제의 흐름: 승인과 정산", category: "결제", date: "2026-09-17",
+  { title: "카드 결제의 흐름: 승인과 정산", category: "결제", date: "2026-10-28",
     summary: "고객이 카드를 긁는 순간부터 가맹점에 돈이 입금되기까지의 과정.",
     body: `
       <h4>승인 흐름</h4>
@@ -470,7 +662,7 @@ const NOTES = [
       <p>카드사가 수수료를 제하고 가맹점(또는 PG)에 대금 지급. 보통 영업일 기준 수일 소요.</p>
       <h4>포인트</h4>
       <ul><li>오프라인은 VAN, 온라인은 PG가 중심</li><li>가맹점 수수료는 카드사·VAN·PG가 나눠 가짐</li></ul>` },
-  { title: "스테이블코인과 CBDC 비교", category: "블록체인", date: "2026-09-24",
+  { title: "스테이블코인과 CBDC 비교", category: "블록체인", date: "2026-11-05",
     summary: "민간이 발행하는 스테이블코인과 중앙은행이 발행하는 CBDC의 차이.",
     body: `
       <h4>비교</h4>
@@ -481,7 +673,7 @@ const NOTES = [
       </ul>
       <h4>더 공부할 것</h4>
       <p>원화 스테이블코인 논의와 국내 CBDC 실험 프로젝트 동향.</p>` },
-  { title: "마이데이터가 바꾸는 금융", category: "AI·데이터", date: "2026-10-01",
+  { title: "마이데이터가 바꾸는 금융", category: "AI·데이터", date: "2026-10-21",
     summary: "개인이 자신의 금융 데이터를 통합·이동시킬 수 있는 권리와 그 비즈니스 기회.",
     body: `
       <h4>개념</h4>
@@ -490,7 +682,7 @@ const NOTES = [
       <ul><li>통합 자산관리</li><li>맞춤형 상품 추천</li><li>대안신용평가</li></ul>
       <h4>과제</h4>
       <p>보안, 데이터 품질, 수익모델 확보.</p>` },
-  { title: "규제 샌드박스는 왜 필요한가", category: "규제", date: "2026-10-08",
+  { title: "규제 샌드박스는 왜 필요한가", category: "규제", date: "2026-11-10",
     summary: "혁신 서비스가 기존 규제에 막히지 않도록 한시적으로 테스트를 허용하는 제도.",
     body: `
       <h4>요약</h4>
@@ -499,27 +691,157 @@ const NOTES = [
       <p>규제는 장벽이 아니라 '설계 조건'. 처음부터 규제를 이해하는 팀이 빨리 간다.</p>` }
 ];
 
-// ✏️ 용어 사전
-const TERMS = [
-  ["PG", "Payment Gateway", "온라인 가맹점을 대신해 카드사와 결제를 중개·정산해 주는 결제대행사."],
-  ["VAN", "Value Added Network", "오프라인 가맹점 단말기와 카드사 사이의 결제 승인 통신망을 제공하는 사업자."],
-  ["오픈뱅킹", "Open Banking", "하나의 앱에서 여러 은행 계좌의 조회·이체를 할 수 있도록 표준 API로 연결한 공동 인프라."],
-  ["마이데이터", "MyData", "개인이 자신의 데이터를 금융사 등에서 원하는 곳으로 전송·통합 관리하도록 하는 제도."],
-  ["BNPL", "Buy Now Pay Later", "선구매 후결제. 소액을 분할로 나중에 결제하는 서비스."],
-  ["CBDC", "Central Bank Digital Currency", "중앙은행이 발행하는 디지털 형태의 법정화폐."],
-  ["스테이블코인", "Stablecoin", "법정화폐 등에 가치를 연동해 가격 변동을 최소화한 가상자산."],
-  ["STO", "Security Token Offering", "증권을 블록체인 기반 토큰으로 발행하는 것(토큰증권)."],
-  ["RWA", "Real World Asset", "부동산·채권 등 실물자산을 토큰화해 블록체인 위에서 거래하는 것."],
-  ["DeFi", "Decentralized Finance", "중개기관 없이 스마트 컨트랙트로 운영되는 탈중앙화 금융 서비스."],
-  ["BaaS", "Banking as a Service", "은행 기능을 API 형태로 비금융 기업에 제공하는 서비스."],
-  ["임베디드 금융", "Embedded Finance", "비금융 서비스 안에 결제·대출·보험 등 금융 기능을 자연스럽게 내장하는 것."],
-  ["KYC", "Know Your Customer", "금융사가 고객의 신원을 확인하는 절차."],
-  ["AML", "Anti-Money Laundering", "자금세탁 방지를 위한 모니터링·보고 체계."],
-  ["레그테크", "RegTech", "규제 준수(컴플라이언스) 업무를 기술로 자동화·효율화하는 분야."],
-  ["로보어드바이저", "Robo-Advisor", "알고리즘 기반으로 자산 배분과 투자 자문을 제공하는 서비스."],
-  ["대안신용평가", "Alternative Credit Scoring", "통신·결제·쇼핑 등 비금융 데이터를 활용한 신용평가."],
-  ["인슈어테크", "InsurTech", "보험(Insurance)과 기술(Technology)을 결합한 혁신 분야."]
-];
+// ✏️ 용어 사전 — 과목(분야)별로 묶여 있어요. [용어, 영문, 설명] 형식으로 추가하세요.
+const TERM_GROUPS = {
+  "금융·핀테크 기초": [
+    ["핀테크", "FinTech", "금융(Finance)과 기술(Technology)의 결합. 기술로 금융 서비스의 방식과 비용 구조를 혁신하는 것."],
+    ["빅테크", "BigTech", "플랫폼과 대규모 고객 기반을 가진 대형 IT 기업. 결제·대출 등 금융업에 진출해 기존 금융사와 경쟁한다."],
+    ["인터넷전문은행", "Internet-only Bank", "점포 없이 모바일·온라인으로만 영업하는 은행."],
+    ["디지털 전환", "DX, Digital Transformation", "업무 프로세스와 비즈니스 모델을 디지털 기술 중심으로 바꾸는 것."],
+    ["예대마진", "Net Interest Margin", "대출 이자와 예금 이자의 차이로 얻는 은행의 핵심 수익."],
+    ["기준금리", "Base Rate", "중앙은행이 정하는 정책 금리. 시중 금리와 자산 가격 전반에 영향을 준다."],
+    ["유동성", "Liquidity", "자산을 손실 없이 빠르게 현금화할 수 있는 정도."],
+    ["레버리지", "Leverage", "빌린 자금을 활용해 투자 수익률(과 위험)을 키우는 것."],
+    ["BIS 비율", "BIS Capital Ratio", "위험가중자산 대비 자기자본 비율. 은행의 건전성 지표."],
+    ["P2P 금융", "Peer-to-Peer Lending", "플랫폼이 개인 투자자와 대출자를 직접 연결하는 금융. 국내에서는 온라인투자연계금융(온투업)."],
+    ["인슈어테크", "InsurTech", "보험과 기술을 결합해 가입·심사·보상을 혁신하는 분야."],
+    ["임베디드 금융", "Embedded Finance", "비금융 서비스 안에 결제·대출·보험 등 금융 기능을 내장하는 것."],
+    ["BaaS", "Banking as a Service", "은행 기능을 API 형태로 비금융 기업에 제공하는 서비스."],
+    ["슈퍼앱", "Super App", "결제·송금·투자·쇼핑 등 여러 서비스를 하나의 앱에서 제공하는 플랫폼."]
+  ],
+  "결제·송금·뱅킹": [
+    ["PG", "Payment Gateway", "온라인 가맹점을 대신해 카드사와 결제를 중개·정산하는 결제대행사."],
+    ["VAN", "Value Added Network", "오프라인 가맹점 단말기와 카드사 사이의 결제 승인 통신망 사업자."],
+    ["간편결제", "Simple Payment", "카드·계좌 정보를 미리 등록해 비밀번호·생체인증만으로 결제하는 서비스."],
+    ["선불전자지급수단", "Prepaid e-Payment", "미리 충전한 금액으로 결제하는 수단(페이 머니 등)."],
+    ["오픈뱅킹", "Open Banking", "여러 은행 계좌의 조회·이체를 하나의 앱에서 할 수 있게 표준 API로 연결한 인프라."],
+    ["마이데이터", "MyData", "개인이 자기 데이터를 원하는 곳으로 전송·통합 관리하게 하는 제도(본인신용정보관리업)."],
+    ["BNPL", "Buy Now Pay Later", "선구매 후결제. 소액을 분할로 나중에 결제하는 서비스."],
+    ["승인과 정산", "Authorization & Settlement", "결제 가능 여부 확인(승인)과 실제 대금이 오가는 과정(정산)."],
+    ["가맹점 수수료", "Merchant Discount Rate", "가맹점이 카드 결제 시 부담하는 수수료. 카드사·VAN·PG가 나눠 가진다."],
+    ["SWIFT", "SWIFT", "전 세계 은행 간 해외송금 메시지를 주고받는 표준 네트워크."],
+    ["실시간 총액결제", "RTGS", "중앙은행 시스템에서 거래 건별로 즉시 최종 결제하는 방식."],
+    ["토큰화(결제)", "Tokenization", "카드번호를 대체 값(토큰)으로 바꿔 저장·전송해 유출 위험을 줄이는 기술."],
+    ["NFC", "Near Field Communication", "근거리 무선통신. 휴대폰 터치결제에 쓰인다."]
+  ],
+  "투자·자산관리": [
+    ["로보어드바이저", "Robo-Advisor", "알고리즘으로 자산 배분과 투자 자문을 제공하는 서비스."],
+    ["포트폴리오", "Portfolio", "투자자가 보유한 여러 자산의 조합."],
+    ["자산배분", "Asset Allocation", "주식·채권·현금 등 자산군별 투자 비중을 정하는 전략."],
+    ["샤프 비율", "Sharpe Ratio", "위험(변동성) 한 단위당 초과수익. 높을수록 효율적인 투자."],
+    ["변동성", "Volatility", "가격이 움직이는 폭. 보통 수익률의 표준편차로 측정한다."],
+    ["MDD", "Maximum Drawdown", "고점 대비 최대 하락 폭. 투자 전략의 최악 손실을 보여준다."],
+    ["백테스팅", "Backtesting", "과거 데이터로 투자 전략의 성과를 검증하는 것."],
+    ["퀀트 투자", "Quantitative Investing", "수학·통계 모델과 데이터에 기반해 투자 결정을 내리는 방식."],
+    ["알고리즘 트레이딩", "Algorithmic Trading", "미리 정한 규칙에 따라 컴퓨터가 자동으로 매매하는 것."],
+    ["ETF", "Exchange Traded Fund", "지수 등을 추종하며 주식처럼 거래소에서 사고파는 펀드."],
+    ["팩터", "Factor", "가치·모멘텀·규모 등 수익률을 설명하는 공통 요인."],
+    ["VaR", "Value at Risk", "일정 기간·신뢰수준에서 발생할 수 있는 최대 예상 손실."]
+  ],
+  "블록체인·디지털자산": [
+    ["블록체인", "Blockchain", "거래 기록을 블록으로 묶어 체인처럼 연결하고 여러 참여자가 공유하는 분산 장부."],
+    ["분산원장", "DLT, Distributed Ledger", "중앙 관리자 없이 여러 노드가 동일한 장부를 나눠 보관하는 기술."],
+    ["합의 알고리즘", "Consensus (PoW / PoS)", "노드들이 어떤 기록이 맞는지 합의하는 방식. 작업증명·지분증명 등."],
+    ["스마트 컨트랙트", "Smart Contract", "조건이 충족되면 자동 실행되는 블록체인 위의 프로그램."],
+    ["지갑", "Wallet (Private Key)", "디지털 자산 접근 권한(개인키)을 보관하는 도구. 키를 잃으면 자산도 잃는다."],
+    ["스테이블코인", "Stablecoin", "법정화폐 등에 가치를 연동해 가격 변동을 줄인 가상자산."],
+    ["CBDC", "Central Bank Digital Currency", "중앙은행이 발행하는 디지털 법정화폐."],
+    ["STO", "Security Token Offering", "증권을 블록체인 기반 토큰으로 발행하는 것(토큰증권)."],
+    ["RWA", "Real World Asset", "부동산·채권 등 실물자산을 토큰화해 블록체인에서 거래하는 것."],
+    ["DeFi", "Decentralized Finance", "중개기관 없이 스마트 컨트랙트로 운영되는 탈중앙화 금융."],
+    ["DEX", "Decentralized Exchange", "중앙 운영자 없이 스마트 컨트랙트로 거래되는 탈중앙화 거래소."],
+    ["NFT", "Non-Fungible Token", "각각 고유한 값을 가져 서로 대체할 수 없는 토큰."],
+    ["가스비", "Gas Fee", "블록체인에서 거래·연산을 처리할 때 내는 수수료."],
+    ["오라클", "Oracle", "외부 데이터(가격 등)를 블록체인 안으로 전달하는 장치."]
+  ],
+  "Python·데이터 분석": [
+    ["Pandas", "pandas", "표 형태 데이터(DataFrame)를 다루는 Python 대표 라이브러리."],
+    ["NumPy", "NumPy", "빠른 배열·행렬 연산을 위한 Python 수치 계산 라이브러리."],
+    ["DataFrame", "DataFrame", "행과 열로 이루어진 표 형태의 데이터 구조."],
+    ["EDA", "Exploratory Data Analysis", "탐색적 데이터 분석. 모델링 전에 데이터의 분포·패턴·이상치를 살피는 단계."],
+    ["결측치", "Missing Value", "비어 있는 값. 삭제·대체(평균, 중앙값 등)로 처리한다."],
+    ["이상치", "Outlier", "다른 값들과 동떨어진 값. 오류일 수도, 중요한 신호(사기 거래)일 수도 있다."],
+    ["시계열", "Time Series", "시간 순서로 기록된 데이터. 주가·거래량 등 금융 데이터 대부분이 해당한다."],
+    ["데이터 시각화", "Data Visualization", "Matplotlib·Seaborn 등으로 데이터를 그래프로 표현하는 것."],
+    ["API", "Application Programming Interface", "프로그램끼리 데이터를 주고받는 약속된 창구."],
+    ["크롤링", "Web Crawling", "웹페이지에서 데이터를 자동으로 수집하는 것."],
+    ["Jupyter", "Jupyter Notebook", "코드·결과·설명을 한 문서에서 실행하며 분석하는 도구."]
+  ],
+  "빅데이터·SQL": [
+    ["SQL", "Structured Query Language", "관계형 데이터베이스에서 데이터를 조회·가공하는 언어."],
+    ["JOIN", "JOIN", "공통 키로 여러 테이블을 연결하는 SQL 연산."],
+    ["GROUP BY", "GROUP BY", "기준 컬럼별로 데이터를 묶어 합계·평균 등을 집계하는 SQL 구문."],
+    ["RDBMS", "Relational Database", "표(테이블)와 관계로 데이터를 저장하는 데이터베이스(MySQL, PostgreSQL 등)."],
+    ["NoSQL", "NoSQL", "문서·키-값 등 표가 아닌 구조로 대용량 데이터를 저장하는 데이터베이스."],
+    ["ETL", "Extract · Transform · Load", "데이터를 추출·변환·적재하는 파이프라인 과정."],
+    ["데이터 웨어하우스", "Data Warehouse", "분석용으로 정제된 데이터를 모아둔 저장소."],
+    ["데이터 레이크", "Data Lake", "가공 전 원천 데이터를 형식 제한 없이 대량으로 저장하는 저장소."],
+    ["하둡 / 스파크", "Hadoop / Spark", "대용량 데이터를 여러 컴퓨터에 나눠 처리하는 분산 처리 프레임워크."],
+    ["클라우드", "Cloud (AWS · GCP · Azure)", "서버·저장소를 인터넷으로 빌려 쓰는 컴퓨팅 방식."],
+    ["데이터 3법", "Data 3 Acts", "개인정보보호법·정보통신망법·신용정보법 개정. 가명정보 활용 근거를 마련했다."],
+    ["가명정보", "Pseudonymized Data", "추가 정보 없이는 개인을 알아볼 수 없게 처리한 정보. 통계·연구에 활용할 수 있다."]
+  ],
+  "통계·머신러닝": [
+    ["회귀분석", "Regression", "변수 간 관계로 연속적인 값(예: 매출, 금리)을 예측하는 방법."],
+    ["로지스틱 회귀", "Logistic Regression", "부도 여부처럼 0/1 결과의 확률을 예측하는 모델. 신용평가의 기본."],
+    ["의사결정나무", "Decision Tree", "질문을 가지치기하듯 나눠 예측하는 모델. 해석이 쉽다."],
+    ["랜덤포레스트", "Random Forest", "여러 의사결정나무의 예측을 모아 정확도를 높인 앙상블 모델."],
+    ["XGBoost / LightGBM", "Gradient Boosting", "이전 모델의 오차를 보완하며 학습하는 부스팅 모델. 금융 정형 데이터에서 강력하다."],
+    ["군집분석", "Clustering (K-means)", "비슷한 데이터끼리 묶는 비지도학습. 고객 세분화에 활용한다."],
+    ["과적합", "Overfitting", "학습 데이터에만 지나치게 맞춰져 새 데이터에서 성능이 떨어지는 현상."],
+    ["교차검증", "Cross Validation", "데이터를 여러 번 나눠 학습·검증하며 모델 성능을 안정적으로 평가하는 방법."],
+    ["혼동행렬", "Confusion Matrix", "예측과 실제를 비교한 표. 정밀도·재현율 계산의 기초."],
+    ["정밀도 / 재현율", "Precision / Recall", "정밀도: 맞다고 한 것 중 실제 맞은 비율. 재현율: 실제 맞은 것 중 찾아낸 비율."],
+    ["AUC-ROC", "AUC-ROC", "분류 모델이 양성과 음성을 얼마나 잘 구분하는지 나타내는 지표."],
+    ["불균형 데이터", "Imbalanced Data", "사기 거래처럼 한쪽 클래스가 매우 적은 데이터. 오버샘플링(SMOTE) 등으로 대응한다."],
+    ["피처 엔지니어링", "Feature Engineering", "원천 데이터에서 예측에 유용한 변수를 만들어내는 작업."],
+    ["대안신용평가", "Alternative Credit Scoring", "통신·결제·쇼핑 등 비금융 데이터를 활용한 신용평가."],
+    ["FDS", "Fraud Detection System", "이상금융거래탐지시스템. 평소와 다른 거래 패턴을 찾아 사기를 막는다."],
+    ["설명가능 AI", "XAI (SHAP 등)", "AI가 왜 그런 판단을 했는지 설명하는 기술. 대출 거절 사유 설명 등에 필요하다."]
+  ],
+  "딥러닝·생성형 AI": [
+    ["인공신경망", "Neural Network", "뇌의 뉴런 구조를 본뜬 층(layer) 구조의 학습 모델."],
+    ["딥러닝", "Deep Learning", "여러 층의 신경망으로 복잡한 패턴을 학습하는 머신러닝 분야."],
+    ["RNN / LSTM", "Recurrent Neural Network", "순서가 있는 데이터를 다루는 신경망. 시계열 예측에 쓰인다."],
+    ["트랜스포머", "Transformer", "어텐션(Attention)으로 문맥을 파악하는 구조. 현재 LLM의 기반."],
+    ["LLM", "Large Language Model", "방대한 텍스트로 학습해 글을 이해·생성하는 대규모 언어 모델."],
+    ["프롬프트 엔지니어링", "Prompt Engineering", "원하는 결과를 얻도록 AI에 주는 지시문을 설계하는 기술."],
+    ["RAG", "Retrieval-Augmented Generation", "외부 문서를 검색해 근거로 삼아 답변을 생성하는 방식. 금융 상담 챗봇에 많이 쓰인다."],
+    ["임베딩", "Embedding", "단어·문장을 의미가 담긴 숫자 벡터로 바꾼 것."],
+    ["파인튜닝", "Fine-tuning", "사전학습된 모델을 특정 업무 데이터로 추가 학습시키는 것."],
+    ["할루시네이션", "Hallucination", "AI가 사실이 아닌 내용을 그럴듯하게 만들어내는 현상."],
+    ["AI 에이전트", "AI Agent", "목표를 받아 스스로 도구를 쓰며 여러 단계 작업을 수행하는 AI."],
+    ["자연어처리", "NLP", "컴퓨터가 사람의 언어를 이해·처리하는 기술. 뉴스 감성분석, 공시 분석 등."]
+  ],
+  "규제·보안·리스크": [
+    ["KYC", "Know Your Customer", "금융사가 고객의 신원을 확인하는 절차."],
+    ["AML", "Anti-Money Laundering", "자금세탁 방지를 위한 모니터링·보고 체계."],
+    ["eKYC", "Electronic KYC", "비대면으로 신분증·얼굴 인증 등을 통해 본인을 확인하는 것."],
+    ["레그테크", "RegTech", "규제 준수 업무를 기술로 자동화·효율화하는 분야."],
+    ["섭테크", "SupTech", "감독기관이 감독 업무에 기술을 활용하는 것."],
+    ["규제 샌드박스", "Regulatory Sandbox", "혁신 서비스에 규제를 한시적으로 면제·유예해 시장에서 시험하게 하는 제도(혁신금융서비스)."],
+    ["전자금융거래법", "Electronic Financial Transactions Act", "전자금융업 등록, 이용자 보호 등 디지털 금융 전반을 규율하는 법."],
+    ["금융소비자보호법", "Financial Consumer Protection Act", "금융상품 판매 시 설명의무·적합성 원칙 등을 정한 법."],
+    ["망분리", "Network Separation", "내부 업무망과 인터넷망을 분리하는 보안 규제. 클라우드·AI 활용과 관련해 완화 논의가 있다."],
+    ["생체인증", "Biometric Authentication", "지문·얼굴 등 신체 정보로 본인을 인증하는 방식."],
+    ["FIDO", "Fast IDentity Online", "비밀번호 없이 생체정보 등으로 인증하는 국제 표준."],
+    ["신용리스크", "Credit Risk", "차입자가 돈을 갚지 못해 생기는 손실 위험."],
+    ["트래블룰", "Travel Rule", "가상자산 이전 시 송·수신인 정보를 함께 전달하도록 한 자금세탁방지 규정."]
+  ],
+  "캡스톤·비즈니스": [
+    ["BM", "Business Model", "누구에게 어떤 가치를 주고 어떻게 돈을 버는지에 대한 구조."],
+    ["PMF", "Product-Market Fit", "제품이 시장의 실제 수요와 맞아떨어진 상태."],
+    ["MVP", "Minimum Viable Product", "핵심 가치만 담아 빠르게 검증하는 최소 기능 제품."],
+    ["페르소나", "Persona", "서비스의 대표 사용자를 구체적인 인물로 정의한 것."],
+    ["CAC / LTV", "Customer Acquisition Cost / Lifetime Value", "고객 한 명 확보 비용과 고객이 평생 가져다주는 가치. LTV가 CAC보다 커야 지속 가능하다."],
+    ["리텐션", "Retention", "고객이 서비스를 계속 사용하는 비율."],
+    ["A/B 테스트", "A/B Test", "두 버전을 나눠 보여주고 어느 쪽 성과가 좋은지 비교하는 실험."],
+    ["KPI", "Key Performance Indicator", "목표 달성 여부를 판단하는 핵심 성과 지표."],
+    ["대시보드", "Dashboard", "핵심 지표를 한눈에 보도록 시각화한 화면(Tableau, Power BI 등)."],
+    ["피칭", "Pitching", "투자자·심사위원에게 아이디어와 사업을 짧고 설득력 있게 발표하는 것."]
+  ]
+};
+const TERMS = Object.entries(TERM_GROUPS).flatMap(([g, list]) => list.map(t => [...t, g]));
 
 // ✏️ 함께한 사람들 (실제 이름/소개로 바꾸세요)
 const PEOPLE = [
@@ -531,6 +853,7 @@ const PEOPLE = [
 
 // ✏️ 자료실 링크
 const RESOURCES = [
+  { ico: "🎓", title: "과정 공식 홈페이지", desc: "서울대 빅데이터 핀테크 AI 과정 소개 · 공지", url: "https://www.snukdt.com/abs/introduce/introduce.php" },
   { ico: "🏛️", title: "금융위원회", desc: "금융 정책 · 혁신금융서비스 지정 현황", url: "https://www.fsc.go.kr" },
   { ico: "🔎", title: "금융감독원", desc: "감독 규정, 금융 통계, 보도자료", url: "https://www.fss.or.kr" },
   { ico: "🏦", title: "한국은행", desc: "지급결제 보고서, CBDC 연구 자료", url: "https://www.bok.or.kr" },
@@ -545,6 +868,14 @@ const RESOURCES = [
 const $ = (s) => document.querySelector(s);
 const esc = (s) => String(s).replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
 const fmt = (d) => { const x = new Date(d + "T00:00:00"); return `${x.getFullYear()}.${String(x.getMonth()+1).padStart(2,"0")}.${String(x.getDate()).padStart(2,"0")}`; };
+const pad = (n) => String(n).padStart(2, "0");
+const TODAY = (d => `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`)(new Date());
+const dow = (d) => "일월화수목금토"[new Date(d + "T00:00:00").getDay()];
+const short = (d) => `${+d.slice(5,7)}.${+d.slice(8,10)}`;
+// "과목:세부/강사" 형식을 나눕니다
+const parseSlot = (txt) => { const [subj, who = ""] = txt.split("/"); const [mod, sub = ""] = subj.split(":"); return { mod, sub, who }; };
+// 오전/오후 수업 블록 단위 목록 (과목별 횟수 계산용)
+const BLOCKS = SESSIONS.flatMap(s => s[4] ? [] : (s[2] && s[2] !== s[1] ? [s[1], s[2]] : [s[1]]).filter(Boolean).map(x => ({ d: s[0], ...parseSlot(x) })));
 const store = { get(k){ try { return localStorage.getItem(k); } catch(e){ return null; } }, set(k,v){ try { localStorage.setItem(k,v); } catch(e){} } };
 
 /* 테마 */
@@ -577,18 +908,88 @@ document.querySelectorAll("#navLinks a").forEach(a => a.onclick = () => $("#navL
 
 /* 교육과정 */
 (function course(){
-  const ov = [["📅 기간", `${fmt(COURSE.start)} – ${fmt(COURSE.end)}`], ["⏰ 일정", COURSE.schedule], ["📍 장소", COURSE.place], ["🧩 방식", COURSE.format]];
+  $("#officialLink").href = COURSE.site;
+  const ov = [["🎓 과정", COURSE.name], ["📅 기간", `${fmt(COURSE.start)} – ${fmt(COURSE.end)}`], ["⏰ 수업", COURSE.schedule], ["📍 장소", COURSE.place], ["🧩 구성", COURSE.format]];
   $("#overview").innerHTML = ov.map(([k,v]) => `<div class="card"><small>${k}</small><b>${esc(v)}</b></div>`).join("");
+  let nextShown = false;
+  $("#milestones").innerHTML = MILESTONES.map(m => {
+    const done = m.date < TODAY;
+    const isNext = !done && !nextShown && (nextShown = true);
+    return `<li class="ms ${done ? "done" : ""} ${isNext ? "next" : ""}">
+      <div class="ms-date">${fmt(m.date)}${isNext ? ' <span class="tag blue">다음 일정</span>' : ""}</div>
+      <div class="ms-title">${esc(m.title)}</div><div class="ms-desc">${esc(m.desc)}</div></li>`;
+  }).join("");
   const label = { done: "완료", now: "진행중", next: "예정" };
-  $("#modules").innerHTML = MODULES.map((m,i) => `
-    <article class="card module reveal">
-      <span class="status ${m.status}">${label[m.status]}</span>
-      <div class="num">MODULE ${String(i+1).padStart(2,"0")}</div>
-      <h3>${esc(m.title)}</h3>
-      <p>${esc(m.desc)}</p>
-      <ul>${m.topics.map(t => `<li>${esc(t)}</li>`).join("")}</ul>
-    </article>`).join("");
+  const phaseName = { 1: "PHASE 1 · 교과교육 (2026.10 – 2027.02)", 2: "PHASE 2 · 캡스톤 기업 실습 (2027.02 – 05)" };
+  let n = 0;
+  $("#modules").innerHTML = [1, 2].map(p => `
+    <h3 class="phase-title">${phaseName[p]}</h3>
+    <div class="grid g-3">${MODULES.filter(m => m.phase === p).map(m => {
+      const ss = BLOCKS.filter(b => b.mod.startsWith(m.key));
+      const done = ss.filter(b => b.d < TODAY).length;
+      const first = ss[0]?.d, last = ss[ss.length - 1]?.d;
+      const status = !first || first > TODAY ? "next" : last < TODAY ? "done" : "now";
+      const teachers = [...new Set(ss.map(b => b.who).filter(w => w && w !== "추후 공지" && w !== "KDT실습"))];
+      const pct = ss.length ? Math.round(done / ss.length * 100) : 0;
+      return `
+      <article class="card module reveal" tabindex="0" data-key="${esc(m.key)}" title="시간표에서 보기">
+        <span class="status ${status}">${label[status]}</span>
+        <div class="num">MODULE ${String(++n).padStart(2,"0")}</div>
+        <h3>${esc(m.key)}</h3>
+        <p>${esc(m.desc)}</p>
+        <ul>${m.topics.map(t => `<li>${esc(t)}</li>`).join("")}</ul>
+        <div class="mod-meta">
+          ${teachers.length ? `<div>👤 ${teachers.map(esc).join(", ")}</div>` : ""}
+          ${first ? `<div>📅 ${short(first)} – ${short(last)} · ${ss.length}회 중 ${done}회 완료</div>` : ""}
+          <div class="bar sm"><span style="width:${pct}%"></span></div>
+          <div class="mod-link">시간표에서 보기 →</div>
+        </div>
+      </article>`; }).join("")}</div>`).join("");
+  const goTo = (card) => { if (!card) return; ttSubject = card.dataset.key; ttMonth = "전체"; renderTimetable(); $("#timetable").scrollIntoView({ behavior: "smooth" }); };
+  $("#modules").onclick = (e) => goTo(e.target.closest(".module"));
+  $("#modules").onkeydown = (e) => { if (e.key === "Enter") goTo(e.target.closest(".module")); };
 })();
+
+/* 시간표 */
+let ttMonth, ttSubject = "";
+(function initTimetable(){
+  const months = [...new Set(SESSIONS.map(s => s[0].slice(0,7)))];
+  ttMonth = months.includes(TODAY.slice(0,7)) ? TODAY.slice(0,7) : months[0];
+  $("#ttMonths").innerHTML = ["전체", ...months].map(m =>
+    `<button class="chip" data-m="${m}">${m === "전체" ? "전체" : +m.slice(5) + "월"}</button>`).join("");
+  $("#ttMonths").onclick = (e) => { const b = e.target.closest(".chip"); if (!b) return; ttMonth = b.dataset.m; renderTimetable(); };
+  $("#ttSubject").innerHTML = `<option value="">모든 과목</option>` + MODULES.map(m => `<option>${esc(m.key)}</option>`).join("");
+  $("#ttSubject").onchange = (e) => { ttSubject = e.target.value; if (ttSubject) ttMonth = "전체"; renderTimetable(); };
+  // 다음 수업
+  const nx = SESSIONS.find(s => s[0] >= TODAY && !s[4]);
+  if (nx) {
+    const isToday = nx[0] === TODAY;
+    $("#nextClass").innerHTML = `<div class="nc-label">${isToday ? "🔔 오늘 수업" : "⏭️ 다음 수업"}</div>
+      <div class="nc-date">${fmt(nx[0])} (${dow(nx[0])})</div>
+      <div class="nc-slots">${slotHtml(nx)}</div>${nx[3] ? `<div class="tt-note">📌 ${esc(nx[3])}</div>` : ""}`;
+  } else $("#nextClass").innerHTML = `<div class="nc-label">🎓 모든 수업이 끝났어요!</div>`;
+  renderTimetable();
+})();
+function slotHtml(s){
+  const [, am, pm] = s;
+  const one = (txt, lbl) => { if (!txt) return ""; const p = parseSlot(txt);
+    return `<div class="tt-slot"><small>${lbl}</small><b>${esc(p.mod)}${p.sub ? ` <em>· ${esc(p.sub)}</em>` : ""}</b>${p.who ? `<span>${esc(p.who)}</span>` : ""}</div>`; };
+  if (am && (!pm || pm === am)) return one(am, pm ? "종일 09:00–18:00" : "오전 09:00–13:00");
+  return one(am, "오전 09:00–13:00") + one(pm, "오후 14:00–18:00");
+}
+function renderTimetable(){
+  document.querySelectorAll("#ttMonths .chip").forEach(b => b.classList.toggle("active", b.dataset.m === ttMonth));
+  $("#ttSubject").value = ttSubject;
+  const rows = SESSIONS.filter(s => (ttMonth === "전체" || s[0].startsWith(ttMonth)) &&
+    (!ttSubject || [s[1], s[2]].some(x => x && parseSlot(x).mod.startsWith(ttSubject))));
+  $("#ttList").innerHTML = rows.map(s => {
+    const cls = s[0] < TODAY ? "past" : s[0] === TODAY ? "today" : "";
+    const body = s[4] ? `<div class="tt-off">🎌 ${esc(s[4])}</div>` : slotHtml(s);
+    return `<div class="tt-row ${cls}"><div class="tt-date"><b>${short(s[0])}</b><span>${dow(s[0])}</span></div>
+      <div class="tt-slots">${body}${s[3] ? `<div class="tt-note">📌 ${esc(s[3])}</div>` : ""}</div></div>`;
+  }).join("") || `<div class="empty" style="display:block">해당하는 수업이 없어요</div>`;
+  $("#ttCount").textContent = ttSubject ? `「${ttSubject}」 ${rows.length}일` : `${rows.length}일`;
+}
 
 /* 여정 타임라인 */
 function renderJourney(order){
@@ -596,7 +997,7 @@ function renderJourney(order){
   $("#timeline").innerHTML = list.map(j => `
     <article class="tl-item">
       <div class="card">
-        <div class="tl-meta"><span class="tag blue">${j.week}주차</span><span>${fmt(j.date)}</span><span class="mood">${j.mood || ""}</span></div>
+        <div class="tl-meta"><span class="tag blue">${j.week ? j.week + "주차" : "개강 전"}</span><span>${fmt(j.date)}</span><span class="mood">${j.mood || ""}</span></div>
         <h3>${esc(j.title)}</h3>
         <p>${esc(j.summary)}</p>
         <div style="margin-top:8px">${(j.tags||[]).map(t => `<span class="tag">#${esc(t)}</span>`).join("")}</div>
@@ -655,10 +1056,24 @@ $("#modalBg").onclick = (e) => { if (e.target.id === "modalBg") closeModal(); };
 document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeModal(); });
 
 /* 용어 사전 */
+let termGroup = "전체";
+const groupNames = Object.keys(TERM_GROUPS);
+$("#termFilters").innerHTML = ["전체", ...groupNames].map(g =>
+  `<button class="chip ${g==="전체"?"active":""}" data-g="${esc(g)}">${esc(g)} <small>${g==="전체" ? TERMS.length : TERM_GROUPS[g].length}</small></button>`).join("");
+$("#termFilters").onclick = (e) => {
+  const b = e.target.closest(".chip"); if (!b) return;
+  termGroup = b.dataset.g;
+  document.querySelectorAll("#termFilters .chip").forEach(x => x.classList.toggle("active", x === b));
+  renderTerms();
+};
 function renderTerms(){
   const q = $("#termSearch").value.trim().toLowerCase();
-  const list = TERMS.filter(t => !q || t.join(" ").toLowerCase().includes(q));
-  $("#termList").innerHTML = list.map(([k,en,d]) => `<div class="card term"><dt>${esc(k)}<small>${esc(en)}</small></dt><dd>${esc(d)}</dd></div>`).join("");
+  const list = TERMS.filter(t => (termGroup === "전체" || t[3] === termGroup) && (!q || t.join(" ").toLowerCase().includes(q)));
+  const groups = [...new Set(list.map(t => t[3]))];
+  $("#termList").innerHTML = groups.map(g => `
+    <h3 class="term-group">${esc(g)} <span>${list.filter(t => t[3] === g).length}개</span></h3>
+    <dl class="glossary">${list.filter(t => t[3] === g).map(([k,en,d]) =>
+      `<div class="card term"><dt>${esc(k)}<small>${esc(en)}</small></dt><dd>${esc(d)}</dd></div>`).join("")}</dl>`).join("");
   $("#termEmpty").style.display = list.length ? "none" : "block";
 }
 $("#termSearch").oninput = renderTerms;
